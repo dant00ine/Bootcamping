@@ -44,7 +44,7 @@ namespace :bootcamps do
 	more_info    = []
 
 
-		counter = 1
+		counter = 0
 	# Linking to Page
 	links.each do |t|
 		url_link = url + "/#{t}"

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get 'users/new'
 
-  get 'users/edit'
+  root 'static_pages#index'
+  get 'static_pages/about'
 
+  resources :users
   resources :bootcamps
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
