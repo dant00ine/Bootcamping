@@ -1,0 +1,81 @@
+<%= form_for(@bootcamp) do |f| %>
+  <% if @bootcamp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bootcamp.errors.count, "error") %> prohibited this bootcamp from being saved:</h2>
+
+      <ul>
+      <% @bootcamp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :about %><br>
+    <%= f.text_area :about %>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.text_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :speciality %><br>
+    <%= f.text_field :speciality %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :website %><br>
+    <%= f.text_field :website %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook %><br>
+    <%= f.text_field :facebook %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter %><br>
+    <%= f.text_field :twitter %>
+  </div>
+  <div class="field">
+    <%= f.label :job_guarantee %><br>
+    <%= f.text_field :job_guarantee %>
+  </div>
+  <div class="field">
+    <%= f.label :job_assistance %><br>
+    <%= f.text_field :job_assistance %>
+  </div>
+  <div class="field">
+    <%= f.label :apprenticeship %><br>
+    <%= f.text_field :apprenticeship %>
+  </div>
+  <div class="field">
+    <%= f.label :accreditation %><br>
+    <%= f.text_field :accreditation %>
+  </div>
+  <div class="field">
+    <%= f.label :post_grad_resources %><br>
+    <%= f.text_field :post_grad_resources %>
+  </div>
+  <div class="field">
+    <%= f.label :housing %><br>
+    <%= f.text_field :housing %>
+  </div>
+  <div class="field">
+    <%= f.label :visa_assistance %><br>
+    <%= f.text_field :visa_assistance %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
