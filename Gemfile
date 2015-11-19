@@ -26,8 +26,8 @@ end
 
 group :production do 
 	gem 'pg' #PostgreSQL
+	gem 'puma' # Puma server
 end
-
 
 # Custom gems
 gem 'bcrypt', '~> 3.1.7' # Use ActiveModel has_secure_password
