@@ -26,6 +26,7 @@ end
 
 group :production do 
 	gem 'pg' #PostgreSQL
+	gem 'rails_12factor'
 	gem 'puma' # Puma server
 end
 
