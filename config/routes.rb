@@ -6,9 +6,11 @@ Rails.application.routes.draw do
 
   resources :bootcamps
 
+  resources :users do
+    resource :profile, except: [:show, :index, :destroy]
+  end
 
   # Sign Up and Sign In
-  resources :users, except: [:show, :index]
   get  'login'  => 'sessions#new'
   post 'login'  => 'sessions#create'
   get  'logout' => 'sessions#destroy'
