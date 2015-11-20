@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   root 'static_pages#index'
   get 'static_pages/about'
 
@@ -9,7 +8,7 @@ Rails.application.routes.draw do
 
 
   # Sign Up and Sign In
-  resources :users
+  resources :users, except: [:show, :index]
   get  'login'  => 'sessions#new'
   post 'login'  => 'sessions#create'
   get  'logout' => 'sessions#destroy'
