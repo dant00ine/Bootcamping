@@ -9,12 +9,12 @@ class UsersController < ApplicationController
 	end
 
     def show
-        # debugger
     end
 
 	def create
         @user = User.new(user_params)
         if @user.save
+            log_in(@user)
         	flash['success'] = "#{@user.email}, Suffessfully Registered !"
         	redirect_to root_path
         else
@@ -23,9 +23,18 @@ class UsersController < ApplicationController
         end
     end
 
+    def update
+        if @user.update_attributes(user_params)
+          flash[:success] = "Profile updated"
+          redirect_to @user
+        else
+          render 'edit'
+        end
+    end
+
     def destroy
-    @user.destroy
-      redirect_to root_path, notice: 'Bootcamp was successfully destroyed.'
+        @user.destroy
+        redirect_to root_path, notice: "#{@user.email} was successfully destroyed." 
     end
 
 private

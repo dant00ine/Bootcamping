@@ -1,6 +1,6 @@
 namespace :bootcamps do
   desc "Scrape All Boostcamps from: https://www.coursereport.com/schools/"
-  task scrape: :environment do
+  task get_bootcamp_all: :environment do
 
 
 	require "open-uri"

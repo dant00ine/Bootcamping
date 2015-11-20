@@ -28,9 +28,9 @@
   <tbody>
     <% @bootcamps.each do |bootcamp| %>
       <tr>
-        <td><%= bootcamp.title %></td>
+        <td><%= link_to bootcamp.title, bootcamp %></td>
         <td><%= bootcamp.about %></td>
-        <td><%= bootcamp.image %></td>
+        <!-- <td><%= image_tag(bootcamp.image) %></td> -->
         <td><%= bootcamp.speciality %></td>
         <td><%= bootcamp.location %></td>
         <td><%= bootcamp.website %></td>
