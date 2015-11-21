@@ -1,1 +1,0 @@
-json.extract! @bootcamp, :id, :title, :about, :image, :speciality, :location, :website, :email, :facebook, :twitter, :job_guarantee, :job_assistance, :apprenticeship, :accreditation, :post_grad_resources, :housing, :visa_assistance, :created_at, :updated_at

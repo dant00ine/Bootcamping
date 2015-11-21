@@ -86,7 +86,6 @@ namespace :bootcamps do
 		end
 
 		# ****************  DETAILS *****************
-
 		# speciality  
 		spec_arr = []
 		page.css("ul.school-info li.school-tracks a").each do |spec|
