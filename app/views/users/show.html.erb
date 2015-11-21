@@ -3,6 +3,7 @@
 <% unless @user.profile.nil? %>
 	<h1><%= "#{@user.profile.first_name} #{@user.profile.last_name} " %></h1>
 	<hr>
+	<p><%= image_tag(@user.profile.image) %></p>
 	<p><%= @user.profile.nick_name %></p>
 	<p><%= @user.profile.first_name %></p>
 	<p><%= @user.profile.last_name %></p>

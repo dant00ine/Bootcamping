@@ -20,9 +20,10 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    # render plain: params
     @profile = @user.profile
-      # if @profile.update_attributes(profile_params)
-      if @profile.update(profile_params)
+      if @profile.update_attributes(profile_params)
+      # if @profile.update(profile_params)
         redirect_to @user, notice: 'Profile was successfully updated.'
       else
         render :edit 
@@ -36,7 +37,7 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:nick_name, :first_name, :last_name, :contact_phone, :contact_email, :contact_website)
+      params.require(:profile).permit(:nick_name, :first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image)
     end
 
     def only_current_user
