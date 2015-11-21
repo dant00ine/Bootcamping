@@ -5,45 +5,17 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>About</th>
-      <th>Image</th>
-      <th>Speciality</th>
-      <th>Location</th>
-      <th>Website</th>
-      <th>Email</th>
-      <th>Facebook</th>
-      <th>Twitter</th>
-      <th>Job guarantee</th>
-      <th>Job assistance</th>
-      <th>Apprenticeship</th>
-      <th>Accreditation</th>
-      <th>Post grad resources</th>
-      <th>Housing</th>
-      <th>Visa assistance</th>
-      <th colspan="3"></th>
+      <th colspan="3">Title</th>
+      <th> SPACE: </th>
+      <th colspan="3"> ACtion</th>
     </tr>
   </thead>
 
   <tbody>
     <% @bootcamps.each do |bootcamp| %>
       <tr>
-        <td><%= link_to bootcamp.title, bootcamp %></td>
-        <td><%= bootcamp.about %></td>
-        <!-- <td><%= image_tag(bootcamp.image) %></td> -->
-        <td><%= bootcamp.speciality %></td>
-        <td><%= bootcamp.location %></td>
-        <td><%= bootcamp.website %></td>
-        <td><%= bootcamp.email %></td>
-        <td><%= bootcamp.facebook %></td>
-        <td><%= bootcamp.twitter %></td>
-        <td><%= bootcamp.job_guarantee %></td>
-        <td><%= bootcamp.job_assistance %></td>
-        <td><%= bootcamp.apprenticeship %></td>
-        <td><%= bootcamp.accreditation %></td>
-        <td><%= bootcamp.post_grad_resources %></td>
-        <td><%= bootcamp.housing %></td>
-        <td><%= bootcamp.visa_assistance %></td>
+        <td colspan="3"><%= link_to bootcamp.title, bootcamp %></td>
+        <td></td>
         <td><%= link_to 'Show', bootcamp %></td>
         <td><%= link_to 'Edit', edit_bootcamp_path(bootcamp) %></td>
         <td><%= link_to 'Destroy', bootcamp, method: :delete, data: { confirm: 'Are you sure?' } %></td>

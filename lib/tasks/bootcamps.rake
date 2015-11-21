@@ -1,7 +1,7 @@
 namespace :bootcamps do
-  desc "Scrape All Boostcamps from: https://www.coursereport.com/schools/"
-  task get_bootcamp_all: :environment do
 
+  desc "Scrape All Boostcamps from: https://www.coursereport.com/schools/"
+  task get_all: :environment do
 
 	require "open-uri"
 	require "nokogiri"
@@ -13,18 +13,18 @@ namespace :bootcamps do
 	search_max = page.css("div#main-content h1 span").text
 	max_schools = search_max.split.first.to_i
 
-	links  = []
-	(1..30).each do |i|
-		url_paging = url + "?page=#{i}"
-		page = Nokogiri::HTML(open(url_paging))
+	links  = [1]
+	# (1..30).each do |i|
+	# 	url_paging = url + "?page=#{i}"
+	# 	page = Nokogiri::HTML(open(url_paging))
 		
-		# Getting link titles
-		link = page.css("div.school-header h3").each do |l|
-			x = l.at_css('a')['href']
-			x.slice! "/schools/"
-	    	links << x
-		end
-	end
+	# 	# Getting link titles
+	# 	link = page.css("div.school-header h3").each do |l|
+	# 		x = l.at_css('a')['href']
+	# 		x.slice! "/schools/"
+	#     	links << x
+	# 	end
+	# end
 
 	# _____Main_____  
 	titles 		 = []
@@ -47,8 +47,8 @@ namespace :bootcamps do
 		counter = 0
 	# Linking to Page
 	links.each do |t|
-		url_link = url + "/#{t}"
-		# url_link = "https://www.coursereport.com/schools/coding-dojo"
+		# url_link = url + "/#{t}"
+		url_link = "https://www.coursereport.com/schools/coding-dojo"
 
 		begin
 			doc = open(url_link)
@@ -68,9 +68,11 @@ namespace :bootcamps do
 		end
 
 		# About
+		about_arr = []
 		page.css("section.about div.expandable p").each do |about|
 			x = about.content
-			abouts << x
+			about_arr << x
+			abouts << about_arr
 		end
 
 		# Images
@@ -99,69 +101,69 @@ namespace :bootcamps do
 		end
 		locations << loc_arr
 
-		# website
-		page.css("ul.school-info li.url").each do |web|
-			if web.at_css("a")["itemprop"]
-				websites << web.text
-			end
-		end
+		# # website
+		# page.css("ul.school-info li.url").each do |web|
+		# 	if web.at_css("a")["itemprop"]
+		# 		websites << web.text
+		# 	end
+		# end
 
-		# email
-		page.css("ul.school-info li.email").each do |email|
-			emails << email.text
-		end
+		# # email
+		# page.css("ul.school-info li.email").each do |email|
+		# 	emails << email.text
+		# end
 
-		# facebook
-		page.css("ul.school-info li.facebook").each do |face|
-			facebooks << face.at_css("a")["href"]
-		end
+		# # facebook
+		# page.css("ul.school-info li.facebook").each do |face|
+		# 	facebooks << face.at_css("a")["href"]
+		# end
 
-		# twitter
-		page.css("ul.school-info li.twitter").each do |twit|
-			twitters << twit.at_css("a")["href"]
-		end
+		# # twitter
+		# page.css("ul.school-info li.twitter").each do |twit|
+		# 	twitters << twit.at_css("a")["href"]
+		# end
 
 
-		# **************** More Information *****************
-		arr = []
-		page.css("div#more-info div.panel-body p").each do |more|
-			arr << more.text
-			more_object = {
-				:job_guarantee  	 => arr[0],
-				:job_assistance 	 => arr[1],
-				:apprenticeship      => arr[2],
-				:accreditation  	 => arr[3],
-				:post_grad_resources => arr[4],
-				:housing             => arr[5],
-				:visa_assistance     => arr[6]
-			}
-		end
-			more_info << more_object
+		# # **************** More Information *****************
+		# arr = []
+		# page.css("div#more-info div.panel-body p").each do |more|
+		# 	arr << more.text
+		# 	more_object = {
+		# 		:job_guarantee  	 => arr[0],
+		# 		:job_assistance 	 => arr[1],
+		# 		:apprenticeship      => arr[2],
+		# 		:accreditation  	 => arr[3],
+		# 		:post_grad_resources => arr[4],
+		# 		:housing             => arr[5],
+		# 		:visa_assistance     => arr[6]
+		# 	}
+		# end
+		# 	more_info << more_object
 	end
 
 	links.length.times do |i| 
 		@boot = Bootcamp.new
 
 		@boot.title 	 = titles[i]
-		@boot.about 	 = abouts[i]
-		@boot.image 	 = images[i] if images[i].present?
+		@boot.about 	 = abouts[i].join(' ')
+		# @boot.image 	 = images[i] if images[i].present?
 
-		@boot.speciality = specs[i]*"," if specs[i].present?
-		@boot.location   = locations[i]*"," if locations[i].present?
+		@boot.speciality = specs[i]*", " if specs[i].present?
+		@boot.location   = locations[i]*", " if locations[i].present?
 
-		@boot.website    = websites[i] if websites[i].present?
-		@boot.email      = emails[i] if emails[i].present?
-		@boot.facebook   = facebooks[i] if facebooks[i].present?
-		@boot.twitter    = twitters[i] if twitters[i].present?
+		# @boot.website    = websites[i] if websites[i].present?
+		# @boot.email      = emails[i] if emails[i].present?
+		# @boot.facebook   = facebooks[i] if facebooks[i].present?
+		# @boot.twitter    = twitters[i] if twitters[i].present?
 
-			# puts more_info[i][:apprenticeship]
-		@boot.job_guarantee       = more_info[i][:job_guarantee]
-		@boot.job_assistance      = more_info[i][:job_assistance]
-		@boot.apprenticeship  	  = more_info[i][:apprenticeship]
-		@boot.accreditation  	  = more_info[i][:accreditation]
-		@boot.post_grad_resources = more_info[i][:post_grad_resources]
-		@boot.housing       	  = more_info[i][:housing]
-		@boot.visa_assistance	  = more_info[i][:visa_assistance]
+		# 	# puts more_info[i][:apprenticeship]
+		# @boot.job_guarantee       = more_info[i][:job_guarantee]
+		# @boot.job_assistance      = more_info[i][:job_assistance]
+		# @boot.apprenticeship  	  = more_info[i][:apprenticeship]
+		# @boot.accreditation  	  = more_info[i][:accreditation]
+		# @boot.post_grad_resources = more_info[i][:post_grad_resources]
+		# @boot.housing       	  = more_info[i][:housing]
+		# @boot.visa_assistance	  = more_info[i][:visa_assistance]
 
 		@boot.save
 	end
@@ -169,7 +171,7 @@ namespace :bootcamps do
   end
 
   desc "Delete All Bootcamps from Database"
-  task delete_bootcamp_all: :environment do
+  task del_all: :environment do
 	Bootcamp.destroy_all
   end
 
