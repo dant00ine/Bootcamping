@@ -1,5 +1,25 @@
 <h1>Editing Profile</h1>
 
-<%= render 'form' %>
+<div class="row">
+	<div class="col-md-6">
+	<%= render 'form' %>
+	</div>
 
+    <div class="col-md-6">
+    	<h2>Status</h2>
+
+    <%= form_for :dev_status, url: :dev_statuses do |f| %>
+        <% if @profile.profession_id == 1 %>
+            <%= f.collection_select(:dev_status_id, @dev_statuses, :id, :status) %>
+                <% @bootcamps.each do |b| %>
+                    <p>
+                    <%= f.label b.title %>
+                    <%= f.check_box (:b) %>
+                    </p>
+                <% end %>  
+        <% end %>
+    <% end %>
+    </div>
+
+</div>
 <%= link_to 'Back', user_path(current_user) %>

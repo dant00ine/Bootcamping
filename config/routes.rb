@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-
   root 'static_pages#index'
   get 'static_pages/about'
 
+  #Statuses
+  resources :dev_statuses
 
+  #  Bootcamps
   resources :bootcamps
 
+  # Users / Profiles
   resources :users do
     resource :profile, except: [:show, :index, :destroy]
   end
