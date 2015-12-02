@@ -1,4 +1,4 @@
-class StatusesController < ApplicationController
+class DevStatusesController < ApplicationController
 
 	def index
 		# @statuses = Status.all
@@ -10,6 +10,9 @@ class StatusesController < ApplicationController
 
 	def create
 		@dev_status = DevStatus.new(status_params)
+		@dev_status.profile_id = current_user.profile.id
+		# render plain: @dev_status.inspect
+
 		if @dev_status.save
 			flash['success'] = "Status Successfully Created"
 			redirect_to user_path(current_user)
@@ -19,9 +22,25 @@ class StatusesController < ApplicationController
 		end
 	end
 
+	def update
+		user_bootcamp = current_user.profile.bootcamps
+		@dev_status = DevStatus.find(user_bootcamp)
+		puts @dev_status
+		render plain: [params, @dev_status]
+		# @dev_status.profile_id = current_user.profile.id
+	end
+
+	# def update
+ #      if @bootcamp.update(bootcamp_params)
+ #        redirect_to @bootcamp, notice: 'Bootcamp was successfully updated.'
+ #      else
+ #        render :edit
+ #      end
+ #  	end
+
 private
 
 	def status_params
-		params.require(:dev_status).permit(:status, :profile_id, :bootcamp_id)
+		params.require(:dev_status).permit(:bootcamp_id)
 	end
 end

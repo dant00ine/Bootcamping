@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :user_profile, only: [:create, :new, :show, :edit]
   before_action :only_current_user
-  before_action :all_bootcamps, only: [:new, :edit]
+  before_action :all_bootcamps_professions, only: [:new, :edit]
 
   def new
     @profile = Profile.new
@@ -34,7 +34,7 @@ class ProfilesController < ApplicationController
 
 private
 
-    def all_bootcamps
+    def all_bootcamps_professions
       @bootcamps = Bootcamp.all
       @professions = Profession.all
     end
