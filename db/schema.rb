@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125044816) do
+ActiveRecord::Schema.define(version: 20151202003915) do
 
   create_table "bootcamps", force: :cascade do |t|
     t.string   "title"
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 20151125044816) do
     t.datetime "updated_at",          null: false
   end
 
-  create_table "dev_statuses", force: :cascade do |t|
-    t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "profile_id"
-    t.integer  "bootcamp_id"
+  create_table "bootcamps_profiles", id: false, force: :cascade do |t|
+    t.integer "profile_id"
+    t.integer "bootcamp_id"
   end
+
+  add_index "bootcamps_profiles", ["bootcamp_id"], name: "index_bootcamps_profiles_on_bootcamp_id"
+  add_index "bootcamps_profiles", ["profile_id"], name: "index_bootcamps_profiles_on_profile_id"
 
   create_table "professions", force: :cascade do |t|
     t.string   "title"
@@ -61,16 +61,6 @@ ActiveRecord::Schema.define(version: 20151125044816) do
     t.string   "image"
     t.integer  "profession_id"
   end
-
-  create_table "statuses", force: :cascade do |t|
-    t.string   "status"
-    t.integer  "statusable_id"
-    t.string   "statusable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "statuses", ["statusable_id"], name: "index_statuses_on_statusable_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

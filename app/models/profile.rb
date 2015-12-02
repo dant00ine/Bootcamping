@@ -3,7 +3,5 @@ class Profile < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :profession
 
-	# its many to many through dev_statuses
-	has_many :dev_statuses
-	has_many :bootcamps, through: :dev_statuses
+	has_and_belongs_to_many :bootcamps
 end
