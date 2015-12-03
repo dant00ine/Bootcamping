@@ -22,18 +22,12 @@
 	<div class="col-md-6">
 		<h1> Bootcamp </h1>
 			<% unless @user.profile.bootcamps.empty? %>
-				<%= @user.profile.bootcamps[0].title %>
+				<% @user.profile.bootcamps.each do |x| %>
+					<p><%= x.title %></p>
+				<% end %>
 			<% else %>
 				Nothing
 			<% end %>
 	</div>
 	<% end %>
 </div>	
-
-
-	
-
-
-
-
-  

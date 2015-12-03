@@ -33,17 +33,18 @@ class ProfilesController < ApplicationController
   end
 
     def bootcamps_add
-        @dev_status = DevStatus.new(status_params)
-        @dev_status.profile_id = current_user.profile.id
-        # render plain: @dev_status.inspect
+        # @dev_status = DevStatus.new(status_params)
+        # @dev_status.profile_id = current_user.profile.id
 
-        if @dev_status.save
-            flash['success'] = "Status Successfully Created"
-            redirect_to user_path(current_user)
-        else
-            flash['danger'] = "Nope not saved WRONG !!!!"
-            render 'new'
-        end
+        render plain: params
+
+        # if @dev_status.save
+        #     flash['success'] = "Status Successfully Created"
+        #     redirect_to user_path(current_user)
+        # else
+        #     flash['danger'] = "Nope not saved WRONG !!!!"
+        #     render 'new'
+        # end
     end
 
 private
