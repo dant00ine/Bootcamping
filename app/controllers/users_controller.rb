@@ -13,8 +13,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			log_in(@user)
-			@profile = @user.create_profile(id: @user.id, user_id: @user.id, contact_email: @user.email)
-			puts @profile
+			@user.create_profile(id: @user.id, user_id: @user.id, contact_email: @user.email)
 			redirect_to edit_user_profile_path(@user)
 		else
 			flash[:danger]  = "Smth wrong "
