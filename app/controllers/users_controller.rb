@@ -13,8 +13,11 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			log_in(@user)
+			
+			@profile = Profile.new
+
 			flash[:success] = "#{@user.email} Successfully Signed Up"
-			redirect_to :back
+			redirect_to :new_user_profile
 		else
 			flash[:danger]  = "Smth wrong "
 			render 'new'

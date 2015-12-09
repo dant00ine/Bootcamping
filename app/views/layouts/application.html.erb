@@ -19,19 +19,17 @@
     
 
     <% if logged_in? %>
-    <div class="text-center">
-      <%= link_to "Home", root_path %> |
-      <%= link_to "Bootcamps", bootcamps_path %> |
-      <%= link_to "Profile", user_path(current_user) %> |
-      <%= link_to "Log Out", logout_path %>
-    </div>
-    <% else %>
-      <h1>You are not logged in !!!</h1>
+      <div class="text-center">
+        <%= link_to "Home", root_path %> |
+        <%= link_to "Bootcamps", bootcamps_path %> |
+        <%= link_to "Profile", user_path(current_user) %> |
+        <%= link_to "Log Out", logout_path %>
+      </div>
     <% end %>
 
-    <div class="container">
-        <%= yield %>
-    </div>
+      <div class="container">
+          <%= yield %>
+      </div>
 
 
 

@@ -3,7 +3,6 @@
         <% if @profile.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
             <ul>
             <% @profile.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -18,7 +17,7 @@
           <%= f.hidden_field :image_cache %>
         </div>
         <div class="form-group">
-            <%= f.collection_select(:profession_id, @professions, :id, :title) %>
+            <%= f.collection_select(:profession_id, Profession.all, :id, :title) %>
         </div>
         <div class="form-group">
           <%= f.label :nick_name %><br>

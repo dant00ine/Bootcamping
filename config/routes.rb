@@ -8,10 +8,8 @@ Rails.application.routes.draw do
     # Users / Profiles
     resources :users do
         resource :profile, except: [:show, :index, :destroy] do
-        post "bootcamps_add"
-        patch "bootcamps_update"
-            # post "bootcamps_add" => "profiles#bootcamps_add"
-            # resources :camps, only: [:create, :update], controller: :profile
+            post "bootcamps_add"
+            patch "bootcamps_update"
         end
     end
 
