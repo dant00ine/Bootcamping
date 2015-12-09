@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :destroy]
+	before_action :set_user, only: [:edit, :show, :update, :destroy]
 	
 	def new
 		@user = User.new
 	end
 
 	def show
+	end
+
+	def edit
 		
 	end
 
@@ -18,6 +21,17 @@ class UsersController < ApplicationController
 		else
 			flash[:danger]  = "Smth wrong "
 			render 'new'
+		end
+	end
+
+	def update
+		if @user && @user.authenticate(params[:user][:current_password])
+			@user.update(user_params)
+			flash[:success] = "#{@user.email} was successfully updated."
+			redirect_to @user
+		else
+			flash[:danger] = "#{@user.email} Something went wrong !"
+			render :edit
 		end
 	end
 
