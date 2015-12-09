@@ -3,5 +3,5 @@
 
 ## To get all Bootcamps Data 
 	run to see all tasks : rake -T (find Bootcamps)
-	run to get all       : rake bootcamps:scrape
-	run to destroy all   : rake bootcamps:delete_bootcamp_all
+	run to get all       : rake bootcamps:get_all
+	run to destroy all   : rake bootcamps:del_all
