@@ -12,7 +12,7 @@
         <% end %>
 
         <div class="form-group">
-          <%= image_tag(@profile.image_url) if @profile.image? %>
+          <%= @profile.image? ? image_tag(@profile.image_url) : image_tag('default.png', size: '200') %>
           <%= f.file_field :image %>
           <%= f.hidden_field :image_cache %>
         </div>
