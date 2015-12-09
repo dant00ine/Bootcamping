@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
-  before_action :user_profile, only: [:create, :new, :show, :edit]
+  before_action :user_profile, only: [:show, :edit]
   before_action :only_current_user
-  before_action :all_bootcamps_professions, only: [:new, :edit]
+  before_action :all_bootcamps_professions, only: [:edit]
 
     # def new
     #     redirect_to :root if !current_user.profile.nil?
@@ -33,10 +33,13 @@ class ProfilesController < ApplicationController
     def bootcamps_add
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
-        
         if x.length != 0
-            current_user.profile.bootcamp_ids = x
-            flash[:success] = "Yeah Added Bootcamps"
+            if x.length < 4
+                current_user.profile.bootcamp_ids = x 
+                flash[:success] = "Yeah Added Bootcamps"
+            else
+                flash[:danger] = "You can only pick 3 or less Bootcamps."
+            end
         else
             flash[:danger] = "You have not checked None."
         end
@@ -46,8 +49,12 @@ class ProfilesController < ApplicationController
     def bootcamps_update
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
-        current_user.profile.bootcamp_ids = x
-        flash[:success] = "Yeah Updated Bootcamps"
+        if x.length < 4
+            current_user.profile.bootcamp_ids = x 
+            flash[:success] = "Yeah Added Bootcamps"
+        else
+            flash[:danger] = "You can only pick 3 or less Bootcamps."
+        end
         redirect_to :back
     end
 

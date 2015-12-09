@@ -3,10 +3,13 @@
 	
 	<hr>
 	<h3>Bootcamp</h3>
+
 	<% Bootcamp.all.each do |b| %>
-	<p><%= "#{b.title}: " %>
+	<p><b><%= link_to "#{b.title}: ", bootcamp_path(b.id)%></b>
 		<% b.profiles.each do |p|%>
-			<%= "#{p.first_name} #{p.last_name}" %>
+
+			<%= link_to p.nick_name, user_path(p.id) %>
+
 		<% end %>
 	</p>
 	<% end %>
