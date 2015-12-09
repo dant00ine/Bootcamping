@@ -3,23 +3,23 @@ class ProfilesController < ApplicationController
   before_action :only_current_user
   before_action :all_bootcamps_professions, only: [:new, :edit]
 
-    def new
-        redirect_to :root if !current_user.profile.nil?
-        @profile = Profile.new
-    end
+    # def new
+    #     redirect_to :root if !current_user.profile.nil?
+    #     @profile = Profile.new
+    # end
 
     def edit
         @profile = @user.profile
     end
 
-    def create
-        @profile = @user.build_profile(profile_params)
-        if @profile.save
-            redirect_to @user, notice: 'Profile was successfully created.'
-        else
-            render :new
-        end
-    end
+    # def create
+    #     @profile = @user.build_profile(profile_params)
+    #     if @profile.save
+    #         redirect_to @user, notice: 'Profile was successfully created.'
+    #     else
+    #         render :new
+    #     end
+    # end
 
     def update
         @profile = @user.profile
@@ -32,15 +32,20 @@ class ProfilesController < ApplicationController
 
     def bootcamps_add
         x = params[:bootcamps] 
-        x ? x = params[:bootcamps]['ids'] : x = []
-        current_user.profile.bootcamp_ids = x
-        flash[:success] = "Yeah Added Bootcamps"
+        x ? x = x['ids'] : x = []
+        
+        if x.length != 0
+            current_user.profile.bootcamp_ids = x
+            flash[:success] = "Yeah Added Bootcamps"
+        else
+            flash[:danger] = "You have not checked None."
+        end
         redirect_to :back
     end
 
     def bootcamps_update
         x = params[:bootcamps] 
-        x ? x = params[:bootcamps]['ids'] : x = []
+        x ? x = x['ids'] : x = []
         current_user.profile.bootcamp_ids = x
         flash[:success] = "Yeah Updated Bootcamps"
         redirect_to :back

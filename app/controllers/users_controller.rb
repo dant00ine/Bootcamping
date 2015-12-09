@@ -22,7 +22,11 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-	end
+    	@user.destroy
+		log_out if logged_in?
+		flash[:danger] = 'Sad to see, You leaving us.'
+    	redirect_to :root
+  	end
 
 private
 

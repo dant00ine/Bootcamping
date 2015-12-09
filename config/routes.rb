@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
     # Users / Profiles
     resources :users do
-        resource :profile, except: [:show, :index, :destroy] do
+        resource :profile, only: [:edit, :update] do
             post "bootcamps_add"
             patch "bootcamps_update"
         end
