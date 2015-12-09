@@ -18,16 +18,18 @@
 	<% end %>
 	</div>
 
-	<% unless @user.profile.nil? %>
-	<div class="col-md-6">
-		<h1> Bootcamp </h1>
-			<% unless @user.profile.bootcamps.empty? %>
-				<% @user.profile.bootcamps.each do |x| %>
-					<p><%= x.title %></p>
+	<% if @user.profile.profession_id == 1%>
+		<% unless @user.profile.nil? %>
+		<div class="col-md-6">
+			<h1> Bootcamp </h1>
+				<% unless @user.profile.bootcamps.empty? %>
+					<% @user.profile.bootcamps.each do |b| %>
+						<p><%= b.title %></p>
+					<% end %>
+				<% else %>
+					Nothing
 				<% end %>
-			<% else %>
-				Nothing
-			<% end %>
-	</div>
+		</div>
+		<% end %>
 	<% end %>
 </div>	

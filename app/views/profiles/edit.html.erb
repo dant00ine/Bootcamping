@@ -9,9 +9,31 @@
 <div class="col-md-6">
     <% if @profile.profession_id == 1 %>
         <% if current_user.profile.bootcamps.empty? %>
-            <%= render 'dev_statuses/form_add_bootcamp' %>
+
+            <!-- Adding -->
+            <%= form_for :bootcamps, url: :bootcamps_add_user_profile do |f| %>
+                <% @bootcamps.each do |b| %>
+                <div class="form-group">
+                    <%= f.label b.title %>
+                    <%= check_box("bootcamps", "ids", {:multiple => true}, checked_value = "#{b.id}", nil) %>
+                </div>
+                <% end %>
+                <%= f.submit "Add Bootcamp" %>
+            <% end %>
+
         <% else %>
-            <%= render 'dev_statuses/form_update_bootcamp' %>
+            <!-- UPDATING -->
+            <%= form_for :bootcamps, url: :bootcamps_update_user_profile, method: :patch do |f| %>
+
+                <% @bootcamps.each do |b| %>
+                    <div class="form-group">
+                        <%= b.title %>    
+                        <%= check_box("bootcamps", "ids", {:multiple => true}, "#{b.id}" , nil)%>
+                    </div>    
+                <% end %>
+                <%= f.submit "Update Bootcamp" %>
+            <% end %>
+
         <% end %>
     <% end %>
 </div>

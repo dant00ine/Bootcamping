@@ -5,12 +5,10 @@ class ProfilesController < ApplicationController
 
   def new
     @profile = Profile.new
-    @dev_statuses = DevStatus.all
   end
 
   def edit
     @profile = @user.profile
-    @dev_statuses = DevStatus.all
   end
 
   def create
@@ -33,18 +31,19 @@ class ProfilesController < ApplicationController
   end
 
     def bootcamps_add
-        # @dev_status = DevStatus.new(status_params)
-        # @dev_status.profile_id = current_user.profile.id
+        x = params[:bootcamps] 
+        x ? x = params[:bootcamps]['ids'] : x = []
+        current_user.profile.bootcamp_ids = x
+        flash[:success] = "Yeah Added Bootcamps"
+        redirect_to :back
+    end
 
-        render plain: params
-
-        # if @dev_status.save
-        #     flash['success'] = "Status Successfully Created"
-        #     redirect_to user_path(current_user)
-        # else
-        #     flash['danger'] = "Nope not saved WRONG !!!!"
-        #     render 'new'
-        # end
+    def bootcamps_update
+        x = params[:bootcamps] 
+        x ? x = params[:bootcamps]['ids'] : x = []
+        current_user.profile.bootcamp_ids = x
+        flash[:success] = "Yeah Updated Bootcamps"
+        redirect_to :back
     end
 
 private

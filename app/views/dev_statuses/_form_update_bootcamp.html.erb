@@ -1,6 +1,0 @@
-    <%= form_for :dev_status, as: :post,  url: :dev_statuses do |f| %>
-                <div class="form-group">
-                    <%= f.collection_select(:bootcamp_id, @bootcamps, :id, :title) %>
-                </div>
-            <%= f.submit "Update Bootcamp" %>
-    <% end %>

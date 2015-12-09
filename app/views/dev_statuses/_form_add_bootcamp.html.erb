@@ -1,7 +1,0 @@
-    <%= form_for :bootcamp, url: :user_profile_camps do |f| %>
-                <div class="form-group">
-                    <%= f.collection_select(:bootcamp_id, @bootcamps, :id, :title) %>
-                </div>
-            <%= f.submit "Add Bootcamp" %>
-    <% end %>
-
