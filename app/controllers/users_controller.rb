@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			log_in(@user)
-			@user.create_profile(id: @user.id, user_id: @user.id, contact_email: @user.email)
+			User.create_profile_and_declare(@user) #calls User.Model to create
 			redirect_to edit_user_profile_path(@user)
 		else
 			flash[:danger]  = "Smth wrong "

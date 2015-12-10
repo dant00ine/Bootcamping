@@ -1,84 +1,100 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @bootcamp.title %>
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+    <h4>Students Who is attending</h4>
+    <hr>
 
-<p>
-  <strong>About:</strong>
-  <%= @bootcamp.about %>
-</p>
+    <% @bootcamp.profiles.each do |p| %>
+        <p><%= Profile.full_name(p.id) if p.profession_id == 1 %></p>
+    <% end %>
+    </div>
+  </div>
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag(@bootcamp.image) %>
-</p>
+  <div class="col-md-8 text-center">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Speciality:</strong>
-  <%= @bootcamp.speciality %>
-</p>
+    <p>
+      <strong>Title:</strong>
+      <%= @bootcamp.title %>
+    </p>
 
-<p>
-  <strong>Location:</strong>
-  <%= @bootcamp.location %>
-</p>
+    <p>
+      <strong>About:</strong>
+      <%= @bootcamp.about %>
+    </p>
 
-<p>
-  <strong>Website:</strong>
-  <%= @bootcamp.website %>
-</p>
+    <p>
+      <strong>Image:</strong>
+      <%= image_tag(@bootcamp.image) %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @bootcamp.email %>
-</p>
+    <p>
+      <strong>Speciality:</strong>
+      <%= @bootcamp.speciality %>
+    </p>
 
-<p>
-  <strong>Facebook:</strong>
-  <%= @bootcamp.facebook %>
-</p>
+    <p>
+      <strong>Location:</strong>
+      <%= @bootcamp.location %>
+    </p>
 
-<p>
-  <strong>Twitter:</strong>
-  <%= @bootcamp.twitter %>
-</p>
+    <p>
+      <strong>Website:</strong>
+      <%= @bootcamp.website %>
+    </p>
 
-<p>
-  <strong>Job guarantee:</strong>
-  <%= @bootcamp.job_guarantee %>
-</p>
+    <p>
+      <strong>Email:</strong>
+      <%= @bootcamp.email %>
+    </p>
 
-<p>
-  <strong>Job assistance:</strong>
-  <%= @bootcamp.job_assistance %>
-</p>
+    <p>
+      <strong>Facebook:</strong>
+      <%= @bootcamp.facebook %>
+    </p>
 
-<p>
-  <strong>Apprenticeship:</strong>
-  <%= @bootcamp.apprenticeship %>
-</p>
+    <p>
+      <strong>Twitter:</strong>
+      <%= @bootcamp.twitter %>
+    </p>
 
-<p>
-  <strong>Accreditation:</strong>
-  <%= @bootcamp.accreditation %>
-</p>
+    <p>
+      <strong>Job guarantee:</strong>
+      <%= @bootcamp.job_guarantee %>
+    </p>
 
-<p>
-  <strong>Post grad resources:</strong>
-  <%= @bootcamp.post_grad_resources %>
-</p>
+    <p>
+      <strong>Job assistance:</strong>
+      <%= @bootcamp.job_assistance %>
+    </p>
 
-<p>
-  <strong>Housing:</strong>
-  <%= @bootcamp.housing %>
-</p>
+    <p>
+      <strong>Apprenticeship:</strong>
+      <%= @bootcamp.apprenticeship %>
+    </p>
 
-<p>
-  <strong>Visa assistance:</strong>
-  <%= @bootcamp.visa_assistance %>
-</p>
+    <p>
+      <strong>Accreditation:</strong>
+      <%= @bootcamp.accreditation %>
+    </p>
 
-<%= link_to 'Edit', edit_bootcamp_path(@bootcamp) %> |
-<%= link_to 'Back', bootcamps_path %>
+    <p>
+      <strong>Post grad resources:</strong>
+      <%= @bootcamp.post_grad_resources %>
+    </p>
+
+    <p>
+      <strong>Housing:</strong>
+      <%= @bootcamp.housing %>
+    </p>
+
+    <p>
+      <strong>Visa assistance:</strong>
+      <%= @bootcamp.visa_assistance %>
+    </p>
+
+    <%= link_to 'Edit', edit_bootcamp_path(@bootcamp) %> |
+    <%= link_to 'Back', bootcamps_path %>
+  </div>
+</div>

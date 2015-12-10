@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
     validates :password_confirmation, presence: true
 
 class << self
+
+    def create_profile_and_declare(user)
+        user.create_profile(id: user.id, user_id: user.id, contact_email: user.email)
+    end
+
     # Returns the hash digest of the given string.
   	def digest(string)
     	cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

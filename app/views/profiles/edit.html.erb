@@ -1,9 +1,11 @@
 <h1>Editing Profile</h1>
-
+<hr>
+<%= link_to '<= Back', user_path(current_user), class: "btn btn-link" %>
+<hr>
 <div class="row">
-	<div class="col-md-6">
-	<%= render 'form' %>
-	</div>
+    <div class="col-md-6">
+    <%= render 'form' %>
+    </div>
 
 
     <div class="col-md-6">
@@ -41,4 +43,3 @@
     </div>
 
 </div>
-<%= link_to 'Back', user_path(current_user) %>

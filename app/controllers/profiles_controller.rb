@@ -55,6 +55,7 @@ class ProfilesController < ApplicationController
         else
             flash[:danger] = "You can only pick 3 or less Bootcamps."
         end
+
         redirect_to :back
     end
 

@@ -7,9 +7,7 @@
 	<% Bootcamp.all.each do |b| %>
 	<p><b><%= link_to "#{b.title}: ", bootcamp_path(b.id)%></b>
 		<% b.profiles.each do |p|%>
-
-			<%= link_to p.nick_name, user_path(p.id) %>
-
+				<%= link_to p.nick_name, user_path(p.id) if p.profession_id == 1 %>
 		<% end %>
 	</p>
 	<% end %>
