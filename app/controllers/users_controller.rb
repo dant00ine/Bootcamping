@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:edit, :show, :update, :destroy]
+	before_action :set_user, only: [:edit,:show, :update, :destroy]
 	
 	def new
 		@user = User.new
 	end
 
 	def show
+		# @user = User.find_by_slug(params[:id])
+		# respond_to do |format|
+		# 	format.html # show.html.erb
+		# 	format.json { render json: @product }
+		# end
 	end
 
 	def edit

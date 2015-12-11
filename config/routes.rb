@@ -3,7 +3,12 @@ Rails.application.routes.draw do
     get 'static_pages/about'
 
     #  Bootcamps
-    resources :bootcamps
+    resources :bootcamps do
+        resources :bootcamp_comments
+          # namespace :bootcamps do
+            resources :bootcamp_reviews, only: [:new, :create]
+          # end
+    end
 
     # Users / Profiles
     resources :users do

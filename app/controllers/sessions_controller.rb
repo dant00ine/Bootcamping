@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
 			log_in(@user)
 			params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
 			flash[:success] = "#{@user.email}, Successfully Logged In"
-			redirect_to :root
+			unless @user.profile.nick_name.nil?
+				redirect_to :root
+			else
+				redirect_to edit_user_profile_path(@user)
+			end
 		else
 			flash.now[:danger] = "Incorrect User/Password"
 			render 'new'

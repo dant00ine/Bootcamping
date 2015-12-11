@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202003915) do
+ActiveRecord::Schema.define(version: 20151211052126) do
+
+  create_table "bootcamp_comments", force: :cascade do |t|
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "bootcamp_id"
+  end
+
+  create_table "bootcamp_reviews", force: :cascade do |t|
+    t.integer  "review"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "bootcamp_id"
+  end
 
   create_table "bootcamps", force: :cascade do |t|
     t.string   "title"
@@ -68,6 +82,7 @@ ActiveRecord::Schema.define(version: 20151202003915) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "remember_digest"
+    t.string   "slug"
   end
 
 end

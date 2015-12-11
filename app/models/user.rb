@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-    attr_accessor :remember_token
+    attr_accessor :remember_token, :slug
     has_one :profile, dependent: :destroy
     before_save { self.email = email.downcase }
     # validates :name, presence: true, length: { maximum: 50 }
@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :password, presence: true, length: { minimum: 2 }
     validates :password_confirmation, presence: true
+    # validates_presence_of :slug
+
+    # def to_param
+    #     "#{id}-#{slug}"
+    # end
+
+    # def slug
+    #     email.downcase.gsub(" ", "_")
+    # end
 
 class << self
 

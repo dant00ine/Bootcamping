@@ -13,4 +13,5 @@ class Profile < ActiveRecord::Base
 		user = Profile.find_by(id: id)
 		"#{user.first_name} #{user.last_name}"
 	end
+
 end

@@ -7,6 +7,8 @@ class BootcampsController < ApplicationController
     end
 
     def show
+        # @review = @bootcamp.bootcamp_reviews.last
+        @review_avg = @bootcamp.bootcamp_reviews.average(:review)
     end
 
     def new

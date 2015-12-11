@@ -1,0 +1,3 @@
+class ApplicationBootcampsController < ApplicationController
+
+end
