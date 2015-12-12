@@ -1,14 +1,14 @@
 class BootcampsController < ApplicationController
     before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
+    helper_method :rating_average
 
     def index
         @bootcamps = Bootcamp.all
     end
 
     def show
-        # @review = @bootcamp.bootcamp_reviews.last
-        @review_avg = @bootcamp.bootcamp_reviews.average(:review)
+        # @review_avg = @bootcamp.bootcamp_reviews.average(:review).round(2)
     end
 
     def new
@@ -40,7 +40,15 @@ class BootcampsController < ApplicationController
         redirect_to bootcamps_url, notice: 'Bootcamp was successfully destroyed.'
     end
 
-  private
+private
+
+    def rating_average(bootcamp)
+        if review = bootcamp.bootcamp_reviews.blank?
+            review = 0
+        else
+            bootcamp.bootcamp_reviews.average(:review).round(2)
+        end
+    end
 
     def only_bootcamp_owner?
         redirect_to(root_path) unless current_user == "Owner of Bootcamp" #database need to design !!!

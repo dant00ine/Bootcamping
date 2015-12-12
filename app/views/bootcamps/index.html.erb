@@ -13,7 +13,9 @@
   <tbody>
     <% @bootcamps.each do |bootcamp| %>
       <tr>
-        <td colspan="3"><%= link_to bootcamp.title, bootcamp %></td>
+        <td colspan="3"> <%= link_to bootcamp.title, bootcamp %> |
+          <span class='star-reviewing' data-score=<%= rating_average(bootcamp) %>> </span>
+        </td>
         <td></td>
         <td><%= link_to 'Show', bootcamp %></td>
         <td><%= link_to 'Edit', edit_bootcamp_path(bootcamp) %></td>
@@ -26,3 +28,14 @@
 <br>
 
 <%= link_to 'New Bootcamp', new_bootcamp_path %>
+
+<script>
+  $('.star-reviewing').raty({
+   path: '/assets/stars',
+   readOnly: true,
+   score: function(){
+    return $(this).attr('data-score');
+   }
+ });
+</script>
+

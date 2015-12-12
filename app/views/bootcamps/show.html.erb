@@ -116,12 +116,11 @@
 
 
     <div class="col-md-12">
-      <hr> <h3 class='star-reviewing' data-score=<%= @review_avg %>> <%= @bootcamp.title %> Review Avg: </h3>
+      <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
 
           <%= form_for ([@bootcamp, BootcampReview.new]) do |f| %>
               <div id="star-reviewing"></div>
               <button type='submit' id="add_review"> add it !</button>
-              
           <% end %>
           <hr width="80%">
           <% @bootcamp.bootcamp_reviews.each do |r| %>
@@ -142,7 +141,6 @@
 
 
 <script>
-  
   // $("#add_review").click(function(){
   //   $.post("bootcamps/1/bootcamp_reviews", function(data){
   //       console.log(data);
