@@ -1,5 +1,5 @@
 class BootcampsController < ApplicationController
-    # before_action :only_bootcamp_owner?, except: [:index, :show]
+    before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
     helper_method :rating_average
 
