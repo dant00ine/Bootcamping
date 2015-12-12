@@ -1,14 +1,21 @@
 class BootcampsController < ApplicationController
-    before_action :only_bootcamp_owner?, except: [:index, :show]
+    # before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
     helper_method :rating_average
+
+    # Post Method
+    def bootcamp_comment_review
+        bootcamp = Bootcamp.find_by(id: params[:bootcamp][:bootcamp_id])
+        bootcamp.bootcamp_reviews.create(params.require(:bootcamp_review).permit(:review))
+        bootcamp.bootcamp_comments.create(params.require(:bootcamp_comment).permit(:body))
+        redirect_to :back
+    end
 
     def index
         @bootcamps = Bootcamp.all
     end
 
     def show
-        # @review_avg = @bootcamp.bootcamp_reviews.average(:review).round(2)
     end
 
     def new
@@ -19,6 +26,7 @@ class BootcampsController < ApplicationController
     end
 
     def create
+        render plain: params
         @bootcamp = Bootcamp.new(bootcamp_params)
         if @bootcamp.save
             redirect_to @bootcamp, notice: 'Bootcamp was successfully created.'

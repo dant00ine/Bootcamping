@@ -97,36 +97,28 @@
     <%= link_to 'Back', bootcamps_path %>
 
     <div class="col-md-12">
-      <hr>
-          <%= form_for ([@bootcamp, BootcampComment.new]) do |f| %>
-          <div class="form-group">
-              <%= f.label :comment %>
-              <%= f.text_field :body %>
-          </div>
-              <%= f.submit 'add Comment' %>
-          <% end %>
+    <hr>
+        <%= form_for :bootcamp, url: bootcamp_comment_review_path   do |f| %>
+            <%= f.hidden_field :bootcamp_id, :value => @bootcamp.id%>
+            <%= fields_for BootcampReview.new do |r| %>
+                <%= r.label :Review %>
+                <div id="star-reviewing"></div>
+            <% end %>
+            <%= fields_for BootcampComment.new do |c| %>
+                <%= c.label :Comment %>
+                <%= c.text_field :body%>
+            <% end %>
+            <%= f.submit 'TEST CREATE' %>
+        <% end %>
+    </div>
 
-        <hr> <h3>Comments</h3>
+        <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
+              <hr> <h3>Comments</h3>
         <% @bootcamp.bootcamp_comments.each do |c| %>
           <%= div_for c do %>
             <p><%= c.body %></p>
           <% end %>  
         <% end %>
-    </div>
-
-
-    <div class="col-md-12">
-      <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
-
-          <%= form_for ([@bootcamp, BootcampReview.new]) do |f| %>
-              <div id="star-reviewing"></div>
-              <button type='submit' id="add_review"> add it !</button>
-          <% end %>
-          <hr width="80%">
-          <% @bootcamp.bootcamp_reviews.each do |r| %>
-            <div class='star-reviewing' data-score=<%= r.review %> ></div>
-          <% end %>
-    </div>
 
   </div>
 </div>
