@@ -17,7 +17,7 @@
 
     <p>
       <strong>Title:</strong>
-      <%= @bootcamp.title %><img src="/assets/stars/star-on.png">
+      <%= @bootcamp.title %>
     </p>
 
     <p>
@@ -159,7 +159,8 @@
 // function callback(data){console.log(data);};
 
   $('#star-reviewing').raty({
-   path: '/assets/stars',
+   // path: '/assets/stars',
+   path: <%= image_tag('/stars')  %>,
    scoreName: 'bootcamp_review[review]' 
  });
 
