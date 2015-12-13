@@ -97,22 +97,23 @@
     <%= link_to 'Back', bootcamps_path %>
 
     <div class="col-md-12">
+      <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
     <hr>
         <%= form_for :bootcamp, url: bootcamp_comment_review_path   do |f| %>
+        <div class="form-group">
             <%= f.hidden_field :bootcamp_id, :value => @bootcamp.id%>
             <%= fields_for BootcampReview.new do |r| %>
-                <%= r.label :Review %>
                 <div id="star-reviewing"></div>
             <% end %>
             <%= fields_for BootcampComment.new do |c| %>
                 <%= c.label :Comment %>
                 <%= c.text_field :body%>
             <% end %>
+            <br>
             <%= f.submit 'TEST CREATE' %>
+        </div>
         <% end %>
     </div>
-
-        <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
               <hr> <h3>Comments</h3>
         <% @bootcamp.bootcamp_comments.each do |c| %>
           <%= div_for c do %>
