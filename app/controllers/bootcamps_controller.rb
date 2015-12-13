@@ -16,6 +16,7 @@ class BootcampsController < ApplicationController
     end
 
     def show
+        @stars_path = Dir.glob("app/assets/images/stars/*.png")
     end
 
     def new

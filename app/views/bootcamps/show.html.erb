@@ -160,8 +160,8 @@
 
   $('#star-reviewing').raty({
    // path: '/assets/stars',
-   path: <%= image_tag('/stars')  %>,
-   scoreName: 'bootcamp_review[review]' 
+   path: '<%= asset_path '/assets/stars' %>',
+   scoreName: 'bootcamp_review[review]'
  });
 
   $('.star-reviewing').raty({
