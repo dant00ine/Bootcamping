@@ -1,3 +1,5 @@
+
+
 <div class="row">
   <div class="col-md-4">
     <div class="well">
@@ -15,7 +17,7 @@
 
     <p>
       <strong>Title:</strong>
-      <%= @bootcamp.title %>
+      <%= @bootcamp.title %><img src="/assets/stars/star-on.png">
     </p>
 
     <p>
@@ -133,6 +135,7 @@
 
 
 
+
 <script>
   // $("#add_review").click(function(){
   //   $.post("bootcamps/1/bootcamp_reviews", function(data){
@@ -141,22 +144,22 @@
   //   }, 'json');
   // });
 
-$("#add_review").click(function(){
-  jQuery.ajax({
-      type: "POST",
-      url: "/bootcamps/<%=@bootcamp.id%>/bootcamp_reviews",
-      // data: JSON.stringify({"bootcamp_review":{"review": 2}}),
-      success: callback,
-      dataType: "json",
-      contentType: "application/json",
-      processData: false
-    });
-});
+// $("#add_review").click(function(){
+//   jQuery.ajax({
+//       type: "POST",
+//       url: "/bootcamps/<%=@bootcamp.id%>/bootcamp_reviews",
+//       // data: JSON.stringify({"bootcamp_review":{"review": 2}}),
+//       success: callback,
+//       dataType: "json",
+//       contentType: "application/json",
+//       processData: false
+//     });
+// });
 
-function callback(data){console.log(data);};
+// function callback(data){console.log(data);};
 
   $('#star-reviewing').raty({
-   path: './app/assets/images/stars',
+   path: '/assets/stars',
    scoreName: 'bootcamp_review[review]' 
  });
 
