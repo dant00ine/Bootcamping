@@ -101,7 +101,7 @@
     <div class="col-md-12">
       <hr> <h3 class='star-reviewing' data-score=<%= rating_average(@bootcamp) %>> <%= @bootcamp.title %> Review Avg: </h3>
     <hr>
-        <%= form_for :bootcamp, url: bootcamp_comment_review_path   do |f| %>
+        <%= form_for :bootcamp, url: :bootcamp_review do |f| %>
         <div class="form-group">
             <%= f.hidden_field :bootcamp_id, :value => @bootcamp.id%>
             <%= fields_for BootcampReview.new do |r| %>

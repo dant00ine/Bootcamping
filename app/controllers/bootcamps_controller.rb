@@ -1,5 +1,5 @@
 class BootcampsController < ApplicationController
-    before_action :only_bootcamp_owner?, except: [:index, :show]
+    # before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
     helper_method :rating_average
 
@@ -16,7 +16,6 @@ class BootcampsController < ApplicationController
     end
 
     def show
-        @stars_path = Dir.glob("app/assets/images/stars/*.png")
     end
 
     def new
