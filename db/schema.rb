@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211052126) do
+ActiveRecord::Schema.define(version: 20151214220447) do
 
   create_table "bootcamp_comments", force: :cascade do |t|
     t.text     "body"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151211052126) do
     t.string   "visa_assistance"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "bimage_url"
   end
 
   create_table "bootcamps_profiles", id: false, force: :cascade do |t|
