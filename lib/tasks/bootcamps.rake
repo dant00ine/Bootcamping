@@ -5,53 +5,31 @@ namespace :bootcamps do
 
 	require "open-uri"
 	require "nokogiri"
-	require 'json'
 
 	url = "https://www.coursereport.com/schools"
 	page = Nokogiri::HTML(open(url))
 
-	# Max schools number
+	# Max schools number, Currently Their School search not work properly.
 	# search_max = page.css("div#main-content h1 span").text
 	# max_schools = search_max.split.first.to_i
 
-	# links  = []
-	# (1..30).each do |i|
-	# 	url_paging = url + "?page=#{i}"
-	# 	page = Nokogiri::HTML(open(url_paging))
+	links  = []
+	(1..30).each do |i|
+		url_paging = url + "?page=#{i}"
+		page = Nokogiri::HTML(open(url_paging))
 		
-	# 	# Getting link titles
-	# 	link = page.css("div.school-header h3").each do |l|
-	# 		x = l.at_css('a')['href']
-	# 		x.slice! "/schools/"
-	#     	links << x
-	# 	end
-	# end
-
-	# _____Main_____  
-	titles 		 = []
-	abouts 		 = []
-	images 		 = []
-
-	# ____Details___
-	specs        = []
-	locations    = []
-	websites     = []
-	emails       = []
-	facebooks    = []
-	twitters     = []
-
-	# ___More info___
-	more_object  = {}
-	more_arr    = []
-
-
-		counter = 0
+		# Getting link titles
+		link = page.css("div.school-header h3").each do |l|
+			x = l.at_css('a')['href']
+			x.slice! "/schools/"
+	    	links << x
+		end
+	end
+	
+	counter = 0
 	# Linking to Page
-	# links.each do |t|
-	1.times do
-		# url_link = url + "/#{t}"
-		# url_link = "https://www.coursereport.com/schools/coding-dojo"
-		url_link = "https://www.coursereport.com/schools/code-fellows"
+	links.each do |t|
+		url_link = url + "/#{t}"
 
 		begin
 			doc = open(url_link)
@@ -67,88 +45,55 @@ namespace :bootcamps do
 		page = Nokogiri::HTML(doc)
 		# Title
 		page.css("div.navigable.col-md-8 div.main-header.hide-on-mobile h1").each do |t|
-			if t.text.length > 1
-				# t = t.text
-				@boot.title = t.text.downcase
-			end
-			# titles << t
+			@boot.title = t.text if t.text.length > 1
 			puts "#{counter +=1}: #{t.text}"
 		end
 
 		# About
 		about_arr = []
 		page.css("section.about div.expandable p").each do |about|
-			
-			if about.content
-				about = about.content
-			end
-			about_arr << about
-			# abouts << about_arr
+			about_arr << about.content if about.content
 		end
 		@boot.about = about_arr.join(' ')
 
 		# Images
 		page.css("div.col-xs-12.visible-xs.visible-sm div.school-image").each do |pic|
-			if pic.at_css("img")
-				puts x = pic.at_css("img")['src']
-				# images << x
-				@boot.bimage_url = pic.at_css("img")['src'].downcase
-			else
-				puts "Image non-exist"
-			end
+			@boot.bimage_url = pic.at_css("img")['src'].downcase if pic.at_css("img")
 		end
 
 		# # ****************  DETAILS *****************
 		# speciality  
-		spec_arr = []
+		speciality_arr = []
 		page.css("ul.school-info li.school-tracks a").each do |spec|
-			if spec.text
-				spec_arr << spec.text
-			end
+			speciality_arr << spec.text if spec.text
 		end
-		# specs << spec_arr
-		@boot.speciality = spec_arr.join(", ").downcase
+		@boot.speciality = speciality_arr.join(", ")
 
 		# Locations
 		loc_arr = []
 		page.css("ul.school-info li.location a").each do |loc|
-			if loc.text
-				loc_arr << loc.text
-			end
+			loc_arr << loc.text if loc.text
 		end
-		# locations << loc_arr
-		@boot.location = loc_arr.join(', ').downcase
+		@boot.location = loc_arr.join(', ')
 
 		# website
 		page.css("ul.school-info li.url").each do |web|
-			if web.at_css("a")["itemprop"]
-				# websites << web.text
-				@boot.website = web.text.downcase
-			end
+			@boot.website = web.text if web.at_css("a")["itemprop"]
 		end
 
 		# email
 		page.css("ul.school-info li.email").each do |email|
-			if email.text
-				# emails << email.text
-				@boot.email = email.text.downcase
-			end
+			@boot.email = email.text if email.text
 		end
 
 		# facebook
 		page.css("ul.school-info li.facebook").each do |face|
-			if face.at_css("a")["href"]
-				# facebooks << face.at_css("a")["href"]
-				@boot.facebook = face.at_css("a")["href"].downcase
-			end
+			@boot.facebook = face.at_css("a")["href"] if face.at_css("a")["href"]
 		end
 
 		# twitter
 		page.css("ul.school-info li.twitter").each do |twit|
-			if twit.at_css("a")["href"]
-				# twitters << twit.at_css("a")["href"]
-				@boot.twitter = twit.at_css("a")["href"].downcase
-			end
+			@boot.twitter = twit.at_css("a")["href"] if twit.at_css("a")["href"]
 		end
 
 
@@ -156,76 +101,18 @@ namespace :bootcamps do
 		arr = []
 		page.css("div#more-info div.panel-body p").each do |more|
 			arr << more.text
-			more_object = {
-				:job_guarantee  	 => arr[0],
-				:job_assistance 	 => arr[1],
-				:apprenticeship      => arr[2],
-				:accreditation  	 => arr[3],
-				:post_grad_resources => arr[4],
-				:housing             => arr[5],
-				:visa_assistance     => arr[6]
-			}
 		end
-			# more_arr << more_object
-			puts JSON.pretty_generate(more_object)
 
-		@boot.job_guarantee        = arr[0].downcase if arr[0].present?
-		@boot.job_assistance       = arr[1].downcase if arr[1].present?
-		@boot.apprenticeship  	   = arr[2].downcase if arr[2].present?
-		@boot.accreditation  	   = arr[3].downcase if arr[3].present?
-		@boot.post_grad_resources  = arr[4].downcase if arr[4].present?
-		@boot.housing       	   = arr[5].downcase if arr[5].present?
-		@boot.visa_assistance	   = arr[6].downcase if arr[6].present?
+		@boot.job_guarantee        = arr[0]
+		@boot.job_assistance       = arr[1]
+		@boot.apprenticeship  	   = arr[2]
+		@boot.accreditation  	   = arr[3]
+		@boot.post_grad_resources  = arr[4]
+		@boot.housing       	   = arr[5]
+		@boot.visa_assistance	   = arr[6]
 
 		@boot.save
-	end 
-
-	# links.length.times do |i|
-	# 3.times do |i|
-	# 	boj = {
-	# 		:title => titles[i],
-	# 		:about => abouts[i].join(' '),
-	# 		:image => images[i],
-	# 		:spec  => specs[i].join(', '),
-	# 		:loc   => locations[i].join(', '),
-	# 		:web   => websites[i],
-	# 		:email => emails[i],
-	# 		:faceb => facebooks[i],
-	# 		:twitt => twitters[i],
-	# 		:job_g => more_info[i][:job_guarantee],
-	# 		:job_a => more_info[i][:job_assistance],
-	# 		:appr  => more_info[i][:apprenticeship],
-	# 		:acc   => more_info[i][:accreditation],
-	# 		:post  => more_info[i][:post_grad_resources],
-	# 		:hous  => more_info[i][:housing],
-	# 		:visa  => more_info[i][:visa_assistance]
-	# 	} 
-	# puts boj
-
-		# @boot = Bootcamp.new
-		# @boot.title 	 = titles[i]
-		# @boot.about 	 = abouts[i].join(' ')
-		# @boot.image_url  = images[i] #if images[i].present?
-
-		# @boot.speciality = specs[i]*", " #if specs[i].present?
-		# @boot.location   = locations[i]*", " #if locations[i].present?
-
-		# @boot.website    = websites[i] #if websites[i].present?
-		# @boot.email      = emails[i] #if emails[i].present?
-		# @boot.facebook   = facebooks[i] #if facebooks[i].present?
-		# @boot.twitter    = twitters[i] #if twitters[i].present?
-
-		# @boot.job_guarantee       = more_info[i][:job_guarantee]
-		# @boot.job_assistance      = more_info[i][:job_assistance]
-		# @boot.apprenticeship  	  = more_info[i][:apprenticeship]
-		# @boot.accreditation  	  = more_info[i][:accreditation]
-		# @boot.post_grad_resources = more_info[i][:post_grad_resources]
-		# @boot.housing       	  = more_info[i][:housing]
-		# @boot.visa_assistance	  = more_info[i][:visa_assistance]
-
-		# @boot.save
-	# end
-
+	end
   end
 
   desc "Delete All Bootcamps from Database"
