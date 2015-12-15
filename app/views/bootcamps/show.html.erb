@@ -37,12 +37,12 @@
 
     <p>
       <strong>Speciality:</strong>
-      <%= @bootcamp.speciality %>
+      <%= @bootcamp.speciality.split.each{|i| i.capitalize!}.join(' ') %>
     </p>
 
     <p>
       <strong>Location:</strong>
-      <%= @bootcamp.location %>
+      <%= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') %>
     </p>
 
     <p>
