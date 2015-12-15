@@ -22,7 +22,7 @@
       <div class="text-center">
         <%= link_to "Home", root_path %> |
         <%= link_to "Bootcamps", bootcamps_path %> |
-        <% if current_user.profile.nick_name ?%>
+        <% if current_user.profile.nick_name.nil? %>
           <%= link_to "Profile", user_path(current_user) %> |
         <% else %>
           <%= link_to current_user.profile.nick_name, user_path(current_user) %> |
