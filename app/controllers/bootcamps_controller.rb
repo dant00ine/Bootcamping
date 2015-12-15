@@ -1,6 +1,7 @@
 class BootcampsController < ApplicationController
-    # before_action :only_bootcamp_owner?, except: [:index, :show]
+    before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate, only: [:new, :create, :edit, :update]
 
     def index
         @bootcamps = Bootcamp.all
@@ -42,6 +43,10 @@ private
 
     def only_bootcamp_owner?
         redirect_to(root_path) unless current_user == "Owner of Bootcamp" #database need to design !!!
+    end
+
+    def authenticate
+        redirect_to :root if session[:user_id] == nil
     end
 
     def set_bootcamp

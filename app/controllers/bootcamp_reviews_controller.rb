@@ -1,9 +1,6 @@
 class BootcampReviewsController < ApplicationController
+	before_action :authenticate, except: [:create]
 	
-	def new
-		@review = BootcampReview.new
-	end
-
 	def create
 		bootcamp = Bootcamp.find_by(id: params[:bootcamp_id])		
 		profile = current_user.profile
@@ -21,4 +18,11 @@ private
 	def bootcamp_review_params
 		params.require(:bootcamp_review).permit(:rating, :body)
 	end
+
+	def authenticate
+		# authenticate_or_request_with_http_basic do |name, password|
+		# 	name =="admin" && password == "secret"
+		# end		
+		redirect_to :root if session[:user_id] == nil
+    end
 end
