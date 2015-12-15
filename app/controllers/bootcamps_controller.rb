@@ -1,15 +1,6 @@
 class BootcampsController < ApplicationController
     # before_action :only_bootcamp_owner?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy]
-    helper_method :rating_average
-
-    # Post Method
-    def bootcamp_comment_review
-        bootcamp = Bootcamp.find_by(id: params[:bootcamp][:bootcamp_id])
-        bootcamp.bootcamp_reviews.create(params.require(:bootcamp_review).permit(:review))
-        bootcamp.bootcamp_comments.create(params.require(:bootcamp_comment).permit(:body))
-        redirect_to :back
-    end
 
     def index
         @bootcamps = Bootcamp.all
@@ -26,7 +17,6 @@ class BootcampsController < ApplicationController
     end
 
     def create
-        render plain: params
         @bootcamp = Bootcamp.new(bootcamp_params)
         if @bootcamp.save
             redirect_to @bootcamp, notice: 'Bootcamp was successfully created.'
@@ -49,14 +39,6 @@ class BootcampsController < ApplicationController
     end
 
 private
-
-    def rating_average(bootcamp)
-        if review = bootcamp.bootcamp_reviews.blank?
-            review = 0
-        else
-            bootcamp.bootcamp_reviews.average(:review).round(2)
-        end
-    end
 
     def only_bootcamp_owner?
         redirect_to(root_path) unless current_user == "Owner of Bootcamp" #database need to design !!!

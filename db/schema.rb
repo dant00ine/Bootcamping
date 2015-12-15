@@ -11,20 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214220447) do
+ActiveRecord::Schema.define(version: 20151215100800) do
 
-  create_table "bootcamp_comments", force: :cascade do |t|
+  create_table "bootcamp_reviews", force: :cascade do |t|
+    t.integer  "rating"
     t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "bootcamp_id"
-  end
-
-  create_table "bootcamp_reviews", force: :cascade do |t|
-    t.integer  "review"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "bootcamp_id"
+    t.integer  "profile_id"
   end
 
   create_table "bootcamps", force: :cascade do |t|

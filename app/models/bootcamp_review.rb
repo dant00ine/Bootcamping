@@ -1,5 +1,5 @@
 class BootcampReview < ActiveRecord::Base
 	belongs_to :bootcamp
-
-	validates :review, presence: true
+	belongs_to :profile
+	# validates :rating, :body, presence: true
 end

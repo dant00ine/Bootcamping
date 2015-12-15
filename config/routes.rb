@@ -2,11 +2,9 @@ Rails.application.routes.draw do
     root 'static_pages#index'
     get 'static_pages/about'
 
-    #  Bootcamps
-    post "bootcamp_review" => "bootcamps#bootcamp_comment_review"
+    #  Bootcamps    
     resources :bootcamps do
-        resources :bootcamp_comments, only: [:new, :create]
-        resources :bootcamp_reviews, only: [:new, :create]
+        resources :bootcamp_reviews
     end
 
     # Users / Profiles
