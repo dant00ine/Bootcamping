@@ -14,12 +14,14 @@
 
                 <!-- Adding -->
                 <%= form_for :bootcamps, url: :bootcamps_add_user_profile do |f| %>
+                <div class="overflowing">
                     <% @bootcamps.each do |b| %>
                     <div class="form-group">
                         <%= f.label b.title %>
                         <%= check_box("bootcamps", "ids", {:multiple => true}, checked_value = "#{b.id}", nil) %>
                     </div>
                     <% end %>
+                </div>
                     <%= f.submit "Add Bootcamp" %>
                 <% end %>
 
@@ -27,14 +29,15 @@
             
                 <!-- UPDATING -->
                 <%= form_for :bootcamps, url: :bootcamps_update_user_profile, method: :patch do |f| %>
-
+                <div class="overflowing">
                     <% @bootcamps.each do |b| %>
-                        <div class="form-group">
+                        <div class="form-group overflowing">
                             <%= b.title %>    
                             <%= check_box("bootcamps", "ids", {:multiple => true}, "#{b.id}" , nil)%>
                             <!-- {disabled: lambda{|category| category.archived? } -->
                         </div>    
                     <% end %>
+                </div>    
                     <%= f.submit "Update Bootcamp" %>
                 <% end %>
 

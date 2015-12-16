@@ -1,0 +1,8 @@
+<h1>PROFILES</h1>
+
+<% @users.each do |u| %>
+	<p><%= link_to u.profile.first_name, u %></p> 
+	  <% if current_user.admin? && !current_user?(u) %>
+      | <%= link_to "delete", u, method: :delete, data: { confirm: "You sure?" } %>
+  	<% end %>
+<% end %>

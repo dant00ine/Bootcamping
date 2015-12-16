@@ -41,7 +41,7 @@
 
     <p>
       <strong>Location:</strong>
-      <%= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') %>
+      <%= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') if @bootcamp.location%>
     </p>
 
     <p>
@@ -169,7 +169,6 @@
 // function callback(data){console.log(data);};
 
   $('#star-reviewing').raty({
-   // path: '/assets/stars',
    path: '<%= asset_path '/assets/stars' %>',
    scoreName: 'bootcamp_review[rating]'
  });

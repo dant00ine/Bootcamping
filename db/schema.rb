@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216010818) do
+ActiveRecord::Schema.define(version: 20151216104407) do
 
   create_table "bootcamp_reviews", force: :cascade do |t|
     t.integer  "rating"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20151216010818) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "nick_name"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "contact_phone"
@@ -79,7 +78,7 @@ ActiveRecord::Schema.define(version: 20151216010818) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "remember_digest"
-    t.string   "slug"
+    t.string   "nick_name"
     t.boolean  "admin",           default: false
   end
 

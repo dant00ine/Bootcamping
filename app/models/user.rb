@@ -1,24 +1,17 @@
 class User < ActiveRecord::Base
-    attr_accessor :remember_token, :slug
+    attr_accessor :remember_token
     has_one :profile, dependent: :destroy
     before_save { self.email = email.downcase }
-    # validates :name, presence: true, length: { maximum: 50 }
-    # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    # validates :email, presence: true, length: { maximum: 255 },
-    #                 format: { with: VALID_EMAIL_REGEX },
-    #                 uniqueness: { case_sensitive: false }
+
+    # validates :nick_name, format: {with: /\A[A-Za-z ]+\z/}
+    validates_length_of :nick_name, :in => 3..15, :on => :update
+    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    validates :email, presence: true, length: { maximum: 255 },
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
     has_secure_password
-    # validates :password, presence: true, length: { minimum: 2 }
-    # validates :password_confirmation, presence: true
-    # validates_presence_of :slug
-
-    # def to_param
-    #     "#{id}-#{slug}"
-    # end
-
-    # def slug
-    #     email.downcase.gsub(" ", "_")
-    # end
+    validates :password, presence: true, length: { minimum: 2 }, allow_nil: true
+    # validates :password_confirmation, :presence => true, :if => '!password.nil?'
 
 class << self
 

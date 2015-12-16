@@ -71,7 +71,7 @@ private
     end
 
     def profile_params
-        params.require(:profile).permit(:nick_name, :first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
+        params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
     end
 
     def only_current_user

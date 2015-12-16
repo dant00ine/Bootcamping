@@ -4,12 +4,30 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
-	def authenticated?
+private
+
+    def authenticated?
         redirect_to :root unless logged_in?
     end
 
-    def admin?
-        # redirect_to :root if current_user.admin == false #true = (false == false)
-        redirect_to :root; flash[:info] = "Its not allowed" unless current_user.admin
+    # Confirms an admin user.
+    def admin_user
+        redirect_to(root_url) unless current_user.admin?
     end
+
+    # Confirms a logged-in user.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms the correct user.
+    def correct_user
+        # @user = User.find(params[:id])
+        redirect_to(root_url) unless current_user?(@user)
+    end
+
 end
