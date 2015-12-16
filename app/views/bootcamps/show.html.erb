@@ -108,9 +108,10 @@
   
     <hr>
     </div>
-    
+
+
 <% if logged_in? %>
-    <% if current_user.profile.bootcamp_review.nil?%>
+    <% if current_user_commented? %>
         <%= form_for ([@bootcamp, BootcampReview.new]) do |f| %>
             <div id="star-reviewing"></div>
             <div class="form-group">

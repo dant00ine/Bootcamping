@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :profession
-	has_one :bootcamp_review, dependent: :destroy
+	has_many :bootcamp_review, dependent: :destroy
 	has_and_belongs_to_many :bootcamps, dependent: :destroy
 
 	# validates :profession_id, presence: true

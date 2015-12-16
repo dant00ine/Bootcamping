@@ -1,44 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootcamping</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <title>Bootcamping</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
-
 
     <% flash.each do |k,v| %>
         <%= content_tag :div, v, class: "alert alert-#{k} text-center" %>
     <% end %>
 
     <% if !logged_in? %>
-      <%= render 'layouts/navbar' %>
+        <%= render 'layouts/navbar' %>
     <% end %>
-    
 
     <% if logged_in? %>
-      <div class="text-center">
-        <%= link_to "Home", root_path %> |
-        <%= link_to "Bootcamps", bootcamps_path %> |
-        <% if current_user.profile.nick_name.nil? %>
-          <%= link_to "Profile", user_path(current_user) %> |
-        <% else %>
-          <%= link_to current_user.profile.nick_name, user_path(current_user) %> |
-        <% end %>
-        <%= link_to "Log Out", logout_path %>
-      </div>
+        <div class="text-center">
+            <%= link_to "Home", root_path %> |
+            <%= link_to "Bootcamps", bootcamps_path %> |
+            <%= link_to current_user.email, user_path(current_user) %> |
+            <%= link_to "Log Out", logout_path %>
+        </div>
     <% end %>
 
-      <div class="container">
-          <%= yield %>
-      </div>
-
+    <div class="container">
+        <%= yield %>
+    </div>
 
 
     <div class="well" style='margin-top: 250px'>
-      <%= debug(params) if Rails.env.development? %>
+        <%= debug(params) if Rails.env.development? %>
     </div>
 </body>
 </html>
