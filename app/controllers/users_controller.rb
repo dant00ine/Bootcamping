@@ -37,11 +37,10 @@ class UsersController < ApplicationController
 				flash[:success] = "#{@user.email} was successfully updated."
 				redirect_to @user
 			else
-				flash[:danger] = @user.errors.full_messages
 				render :edit	
 			end
 		else
-			flash[:danger] = "Current Password didnt Match !"
+			flash[:danger] = "Current password invalid/not match !"
 			render :edit
 		end
 	end
