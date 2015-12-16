@@ -30,4 +30,8 @@ private
         redirect_to(root_url) unless current_user?(@user)
     end
 
+    def only_bootcamp_owner?
+        redirect_to :root if current_user.profile.bootcamp_admin != @bootcamp.id
+    end
+
 end

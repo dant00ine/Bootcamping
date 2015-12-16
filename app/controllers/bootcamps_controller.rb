@@ -2,7 +2,7 @@ class BootcampsController < ApplicationController
     before_action :authenticated?, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy, :only_bootcamp_owber?]
     before_action :only_bootcamp_owner?, only: [:edit, :update]
-    before_action :admin_user, only: :destroy
+    # before_action :admin_user, only: [:new, :create, :destroy]
     
     def index
         @bootcamps = Bootcamp.paginate(page: params[:page])
