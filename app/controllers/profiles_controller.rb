@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :user_profile, only: [:show, :edit]
-  before_action :only_current_user
+  before_action :user_profile_set, only: [:edit, :update, :correct_user]
+  before_action :correct_user, only: [:edit, :update]
   before_action :all_bootcamps_professions, only: [:edit]
 
     # def new
@@ -23,10 +23,14 @@ class ProfilesController < ApplicationController
 
     def update
         @profile = @user.profile
+
         if @profile.update_attributes(profile_params)
-            redirect_to @user, notice: 'Profile was successfully updated.'
+            flash[:success] = "#{Profile.full_name(@profile)}: successfully updated." 
+            redirect_to edit_user_path(@user)
         else
-            render :edit 
+            flash[:danger] = "#{@profile.errors.full_messages}" 
+            # redirect_to edit_user_path(@user)
+            render :back
         end
     end
 
@@ -55,7 +59,6 @@ class ProfilesController < ApplicationController
         else
             flash[:danger] = "You can only pick 3 or less Bootcamps."
         end
-
         redirect_to :back
     end
 
@@ -66,16 +69,12 @@ private
         @professions = Profession.all
     end
 
-    def user_profile
-        @user = User.find(params[:user_id])
+    def user_profile_set
+        @user = User.friendly.find(params[:user_id])
     end
 
     def profile_params
         params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
     end
 
-    def only_current_user
-        @user = User.find(params[:user_id])
-        redirect_to(root_path) unless @user == current_user
-    end
 end

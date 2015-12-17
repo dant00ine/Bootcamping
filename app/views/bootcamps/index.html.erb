@@ -16,20 +16,21 @@
   <tbody>
     <% @bootcamps.each do |bootcamp| %>
       <tr>
+
         <td colspan="3"> <%= link_to bootcamp.title, bootcamp %> |
           <span class='star-reviewing' data-score=<%= rating_average(bootcamp) %>> </span>
         </td>
         <td></td>
-        <td><%= link_to 'Show', bootcamp %></td>
-        <td><%= link_to 'Edit', edit_bootcamp_path(bootcamp) %></td>
-        <td><%= link_to 'Destroy', bootcamp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if bootcamp_owner?(bootcamp) || current_user.admin %>
+          <td><%= link_to 'Edit', edit_bootcamp_path(bootcamp) %> |</td>
+          <td>| <%= link_to 'Destroy', bootcamp, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
 
 
 <script>

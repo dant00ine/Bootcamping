@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
     attr_accessor :remember_token
+    extend FriendlyId
+    friendly_id :nick_name, use: :slugged
     has_one :profile, dependent: :destroy
-    before_save { self.email = email.downcase }
 
+    before_save { self.email = email.downcase }
     # validates :nick_name, format: {with: /\A[A-Za-z ]+\z/}
+    validates :nick_name, format: {with: /\A[a-z\d]*\Z/i}
     validates_length_of :nick_name, :in => 3..15, :on => :update
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, length: { maximum: 255 },
@@ -11,7 +14,6 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
     has_secure_password
     validates :password, presence: true, length: { minimum: 2 }, allow_nil: true
-    # validates :password_confirmation, :presence => true, :if => '!password.nil?'
 
 class << self
 

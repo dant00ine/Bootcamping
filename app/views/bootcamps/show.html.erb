@@ -111,8 +111,23 @@
 
 
 <% if logged_in? %>
-    <% if current_user_commented? %>
+    <% unless current_user_commented? %>
         <%= form_for ([@bootcamp, BootcampReview.new]) do |f| %>
+
+          <% if @bootcamp.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@bootcamp.errors.count, "error") %> prohibited this bootcamp from being saved:</h2>
+
+              <ul>
+              <% @bootcamp.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
+
             <div id="star-reviewing"></div>
             <div class="form-group">
                 <%= f.label :comment %>

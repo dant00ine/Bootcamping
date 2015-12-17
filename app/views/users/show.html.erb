@@ -10,11 +10,9 @@
 		<p><%= @user.profile.contact_email %></p>
 		<p><%= link_to @user.profile.contact_website, "http://#{@user.profile.contact_website}", :target => "_blank" unless @user.profile.contact_website.nil? %></p>
 		<hr>
-		<% if current_user?(@user) %>
-			<%= link_to 'UPDATE = PROFILE', edit_user_profile_path(@user), class: "btn btn-info" %>
-			<%= link_to 'UPDATE = USER', edit_user_path(@user), class: "btn btn-success" %>
-			<%= link_to 'Destroy = USER/PROFILE', user_path(@user), method: :delete, data: { confirm: 'Are you sure To Destroy?' }, class: "btn btn-danger" %>
-		<% end %>
+		
+<%= link_to 'Update Profile', edit_user_path(@user), class: "btn btn-success" if current_user?(@user) %>
+		
 	<% end %>
 	</div>
 
@@ -28,7 +26,7 @@
 					<% end %>
 				<% else %>
 					<% if current_user?(@user) %>
-						<h4>Please Choice Your Bootcamp School</h4>
+						<h4>Please Choose Your Bootcamp School</h4>
 					<% else %>
 						<h4>This User has not gone to Bootcamps</h4>
 					<% end %>

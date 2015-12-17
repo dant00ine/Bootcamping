@@ -1,0 +1,44 @@
+<%= form_for ([@user, @profile]), html: { multipart: true } do |f| %>
+    <% if @profile.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+        <ul>
+        <% @profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= @profile.image? ? image_tag(@profile.image_url) : image_tag('default.png', size: '180') %>
+      <%= f.file_field :image %>
+      <%= f.hidden_field :image_cache %>
+    </div>
+    <div class="form-group">
+        <%= f.collection_select(:profession_id, Profession.all, :id, :title) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :contact_phone %><br>
+      <%= f.text_field :contact_phone %>
+    </div>
+    <div class="form-group">
+      <%= f.label :contact_email %><br>
+      <%= f.text_field :contact_email %>
+    </div>
+    <div class="form-group">
+      <%= f.label :contact_website %><br>
+      <%= f.text_field :contact_website %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

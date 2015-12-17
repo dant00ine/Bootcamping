@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 			unless @user.profile.profession_id.nil?
 				redirect_back_or (@user)
 			else
-				redirect_to edit_user_profile_path(@user)
+				redirect_to edit_user_path(@user)
 			end
 		else
 			flash.now[:danger] = "Incorrect User/Password"

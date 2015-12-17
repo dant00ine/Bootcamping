@@ -1,8 +1,8 @@
 class BootcampsController < ApplicationController
-    before_action :authenticated?, except: [:index, :show]
+    before_action :logged_in_user, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy, :only_bootcamp_owber?]
     before_action :only_bootcamp_owner?, only: [:edit, :update]
-    # before_action :admin_user, only: [:new, :create, :destroy]
+    before_action :admin_user, only: [:new, :create, :destroy]
     
     def index
         @bootcamps = Bootcamp.paginate(page: params[:page])
@@ -43,7 +43,9 @@ class BootcampsController < ApplicationController
 private
 
     def only_bootcamp_owner?
-        redirect_to :root; flash[:danger] = "Not allowed !" if current_user.profile.bootcamp_admin != @bootcamp.id
+        if current_user.profile.bootcamp_admin != @bootcamp.id
+            redirect_to :root; flash[:danger] = "This Bootcamp not belongs to you."
+        end
     end
 
     def set_bootcamp
@@ -51,6 +53,6 @@ private
     end
 
     def bootcamp_params
-        params.require(:bootcamp).permit(:title, :about, :image, :image_url, :speciality, :location, :website, :email, :facebook, :twitter, :job_guarantee, :job_assistance, :apprenticeship, :accreditation, :post_grad_resources, :housing, :visa_assistance)
+        params.require(:bootcamp).permit(:title, :about, :image, :bimage_url, :speciality, :location, :website, :email, :facebook, :twitter, :job_guarantee, :job_assistance, :apprenticeship, :accreditation, :post_grad_resources, :housing, :visa_assistance)
     end
 end

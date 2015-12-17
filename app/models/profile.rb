@@ -1,21 +1,28 @@
 class Profile < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
-
+	
 	belongs_to :user
 	belongs_to :profession
-	has_many :bootcamp_review, dependent: :destroy
+	has_many :bootcamp_reviews, dependent: :destroy
 	has_and_belongs_to_many :bootcamps, dependent: :destroy
 
-	# validates :profession_id, presence: true
-	# validates :first_name, presence: true, length: { minimum:3, maximum: 50 }
-	# validates :last_name, presence: true, length: { minimum:3, maximum: 50 }
+	validates_numericality_of :profession_id, presence: true, :only_integer => true
 
-	# validates :phone, format: {with: /\A[0-9]{3}-[0-9]{3}-[0-9]{4}+\z/}
+	# validates_numericality_of :vacants, :greater_than_or_equal_to => 0,  
+    #validates_numericality_of :price, :greater_than_or_equal_to => 0,  :only_integer => true
+
+	validates :first_name, :last_name, presence: true, length: { minimum:3, maximum: 15 }, 
+													   format: {with: /\A[A-Za-z]+\z/}, :on => :update
+    validates :image, presence: true
+	validates :contact_phone, format: {with: /\A[0-9]{3}-[0-9]{3}-[0-9]{4}+\z/}, :on => :update
 
 
-	def self.full_name(id)
-		user = Profile.find_by(id: id)
-		"#{user.first_name} #{user.last_name}"
+	def self.full_name(obj)
+		user = Profile.find_by(id: obj)
+		puts "*"*100
+		p "#{user.first_name} #{user.last_name}" unless user.first_name.nil?
+		puts "*"*100
+		# "#{user.first_name} #{user.last_name}" unless user.first_name
 	end
 
 end

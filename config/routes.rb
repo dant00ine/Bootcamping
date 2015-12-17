@@ -9,10 +9,11 @@ Rails.application.routes.draw do
 
     # Users / Profiles
     resources :users do
-        resource :profile, only: [:edit, :update] do
+        # resource :profile, only: [:edit, :update] do
+        patch "profile" => "users#update_profile"
             post "bootcamps_add"
             patch "bootcamps_update"
-        end
+        # end
     end
 
     # Sign Up and Sign In

@@ -10,7 +10,8 @@ class BootcampReviewsController < ApplicationController
 			flash['success'] = "YEAHHHHH #{camp.body}"
 			redirect_to :back
 		else
-			render :back
+			@bootcamp = Bootcamp.find(params[:bootcamp_id])
+			render 'bootcamps/show'
 		end
 	end
 private
