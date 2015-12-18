@@ -81,7 +81,11 @@ private
     end
 
 	def set_profile_and_bootcamps
-		@user = User.find(params[:user_id])
+		if params[:id]
+			@user = User.find(params[:id])
+		elsif params[:user_id]
+			@user = User.find(params[:user_id])
+		end
 		@profile = @user.profile
 		@bootcamps = Bootcamp.all
 	end
