@@ -1,11 +1,8 @@
 module BootcampsHelper
 
     def rating_average(bootcamp)
-        if rating = bootcamp.bootcamp_reviews.blank?
-            rating = 0
-        else
-            bootcamp.bootcamp_reviews.average(:rating).round(2)
-        end
+        review = bootcamp.bootcamp_reviews
+        !review.nil? ? review.average(:rating) : review.average(:rating).round(2)
     end
 
     def current_user_commented?

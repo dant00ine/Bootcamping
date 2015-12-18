@@ -22,6 +22,8 @@ class UsersController < ApplicationController
 	end
 
 	def create
+		# @user = User.friendly.find(params[:user_id])
+
 		@user = User.new(user_params)
 		if @user.save
 			log_in(@user)
@@ -49,7 +51,10 @@ class UsersController < ApplicationController
 	end
 
     def update_profile
-    	@user = User.friendly.find(params[:user_id])
+    	# @user = User.friendly.find(params[:user_id])
+    	@user = User.find(params[:user_id])
+
+    	
         @profile = @user.profile
     	
         if @profile.update_attributes(profile_params)
@@ -79,8 +84,8 @@ private
 	end
 
 	def set_user
-      # @user = User.find(params[:id])
-      @user = User.friendly.find(params[:id])
+      @user = User.find(params[:id])
+      # @user = User.friendly.find(params[:id])
     end
 
 	def user_params

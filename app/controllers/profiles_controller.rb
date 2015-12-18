@@ -3,14 +3,9 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :all_bootcamps_professions, only: [:edit]
 
-    # def new
-    #     redirect_to :root if !current_user.profile.nil?
-    #     @profile = Profile.new
+    # def edit
+    #     @profile = @user.profile
     # end
-
-    def edit
-        @profile = @user.profile
-    end
 
     # def create
     #     @profile = @user.build_profile(profile_params)
@@ -21,18 +16,18 @@ class ProfilesController < ApplicationController
     #     end
     # end
 
-    def update
-        @profile = @user.profile
+    # def update
+    #     @profile = @user.profile
 
-        if @profile.update_attributes(profile_params)
-            flash[:success] = "#{Profile.full_name(@profile)}: successfully updated." 
-            redirect_to edit_user_path(@user)
-        else
-            flash[:danger] = "#{@profile.errors.full_messages}" 
-            # redirect_to edit_user_path(@user)
-            render :back
-        end
-    end
+    #     if @profile.update_attributes(profile_params)
+    #         flash[:success] = "#{Profile.full_name(@profile)}: successfully updated." 
+    #         redirect_to edit_user_path(@user)
+    #     else
+    #         flash[:danger] = "#{@profile.errors.full_messages}" 
+    #         # redirect_to edit_user_path(@user)
+    #         render :back
+    #     end
+    # end
 
     def bootcamps_add
         x = params[:bootcamps] 
@@ -70,7 +65,8 @@ private
     end
 
     def user_profile_set
-        @user = User.friendly.find(params[:user_id])
+        # @user = User.friendly.find(params[:user_id])
+        @user = User.find(params[:id])
     end
 
     def profile_params

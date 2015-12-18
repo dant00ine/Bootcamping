@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
     attr_accessor :remember_token
-    extend FriendlyId
-    friendly_id :nick_name, use: :slugged
+    # extend FriendlyId
+    # friendly_id :nick_name, use: :slugged
+    
     has_one :profile, dependent: :destroy
 
     before_save { self.email = email.downcase }
