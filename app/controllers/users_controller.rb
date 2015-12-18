@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update, :destroy]
-	before_action :set_profile_and_bootcamps, only:[:edit, :update]
+	before_action :set_profile_and_bootcamps, only:[:edit, :update, :update_profile]
 
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
 	before_action :correct_user,   only: [:edit, :update, :destroy]
@@ -52,9 +52,9 @@ class UsersController < ApplicationController
 
     def update_profile
     	# @user = User.friendly.find(params[:user_id])
-    	@user = User.find(params[:user_id])
+    	# @user = User.find(params[:user_id])
     	
-        @profile = @user.profile    	
+        # @profile = @user.profile
         if @profile.update_attributes(profile_params)
             flash[:success] = "#{Profile.full_name(@profile)}: successfully updated." 
             redirect_to edit_user_path(@user)
@@ -81,6 +81,7 @@ private
     end
 
 	def set_profile_and_bootcamps
+		@user = User.find(params[:user_id])
 		@profile = @user.profile
 		@bootcamps = Bootcamp.all
 	end

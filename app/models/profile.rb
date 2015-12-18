@@ -13,7 +13,7 @@ class Profile < ActiveRecord::Base
 
 	validates :first_name, :last_name, presence: true, length: { minimum:3, maximum: 15 }, 
 													   format: {with: /\A[A-Za-z]+\z/}, :on => :update
-    validates :image, presence: true, :on => :update
+    # validates :image, presence: true, :on => :update
 	validates :contact_phone, format: {with: /\A[0-9]{3}-[0-9]{3}-[0-9]{4}+\z/}, :on => :update
 
 
