@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 	before_action :set_profile, only:[:edit, :update]
 
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-	before_action :correct_user,   only: [:edit, :update, :destroy]
+	before_action :correct_user,   only: [:edit, :update, :destroy, :update_profile]
 	# before_action :admin_user,     only: [:destroy]
 	
 	def index
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		
+		@bootcamps = Bootcamp.all
 	end
 
 	def create
@@ -73,11 +73,6 @@ class UsersController < ApplicationController
   	end
 
 private
-
-	def rendering
-		# render action: :edit
-		render "users/edit"
-	end
 
 	def set_profile
 		@profile = @user.profile

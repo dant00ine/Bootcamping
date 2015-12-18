@@ -4,17 +4,15 @@ Rails.application.routes.draw do
 
     #  Bootcamps    
     resources :bootcamps do
-        # resources :bootcamp_reviews
         post 'review' => 'bootcamps#review'
     end
 
     # Users / Profiles
     resources :users do
-        # resource :profile, only: [:edit, :update] do
         patch "profile" => "users#update_profile"
-            post "bootcamps_add"
-            patch "bootcamps_update"
-        # end
+
+        post "bootcamps_add" => 'profiles#bootcamps_add'
+        patch "bootcamps_update" => 'profiles#bootcamps_update'
     end
 
     # Sign Up and Sign In

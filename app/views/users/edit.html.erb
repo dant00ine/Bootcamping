@@ -4,6 +4,8 @@
   <div class="col-md-6 col-md-offset-3">
     <%= render 'profile_edit' %>
     <hr>
+    <%= render 'bootcamps' %>
+    <hr>
     <%= render 'user_edit' %>
     <hr>
     <%= link_to 'Destroy = USER/PROFILE', user_path(@user), method: :delete, data: { confirm: 'Are you sure To Destroy?' }, class: "btn btn-danger" %>

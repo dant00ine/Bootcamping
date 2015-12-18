@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :user_profile_set, only: [:edit, :update, :correct_user]
+  before_action :user_profile_set, only: [:edit, :update, :correct_user, :bootcamps_add, :bootcamps_update]
   before_action :correct_user, only: [:edit, :update]
   before_action :all_bootcamps_professions, only: [:edit]
 
@@ -30,11 +30,12 @@ class ProfilesController < ApplicationController
     # end
 
     def bootcamps_add
+        # render plain: params
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
         if x.length != 0
-            if x.length < 4
-                current_user.profile.bootcamp_ids = x 
+            if x.length <= 2
+                @user.profile.bootcamp_ids = x
                 flash[:success] = "Yeah Added Bootcamps"
             else
                 flash[:danger] = "You can only pick 3 or less Bootcamps."
@@ -48,8 +49,8 @@ class ProfilesController < ApplicationController
     def bootcamps_update
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
-        if x.length < 4
-            current_user.profile.bootcamp_ids = x 
+        if x.length <= 2
+            @user.profile.bootcamp_ids = x 
             flash[:success] = "Yeah Added Bootcamps"
         else
             flash[:danger] = "You can only pick 3 or less Bootcamps."
@@ -59,18 +60,18 @@ class ProfilesController < ApplicationController
 
 private
 
-    def all_bootcamps_professions
-        @bootcamps = Bootcamp.all
-        @professions = Profession.all
-    end
+    # def all_bootcamps_professions
+    #     @bootcamps = Bootcamp.all
+    #     @professions = Profession.all
+    # end
 
     def user_profile_set
         # @user = User.friendly.find(params[:user_id])
-        @user = User.find(params[:id])
+        @user = User.find(params[:user_id])
     end
 
-    def profile_params
-        params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
-    end
+    # def profile_params
+    #     params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
+    # end
 
 end

@@ -1,0 +1,36 @@
+
+<% if @profile.profession_id == 1 %>
+    <% if current_user.profile.bootcamps.empty? %>
+
+        <!-- Adding -->
+        <%= form_for :bootcamps, url: user_bootcamps_add_path(@user) do |f| %>
+        <div class="overflowing">
+            <% @bootcamps.each do |b| %>
+            <div class="form-group">
+                <%= f.label b.title %>
+                <%= check_box("bootcamps", "ids", {:multiple => true}, checked_value = "#{b.id}", nil) %>
+            </div>
+            <% end %>
+        </div>
+            <%= f.submit "Add Bootcamp" %>
+        <% end %>
+
+    <% else %>
+    
+        <!-- UPDATING -->
+        <%= form_for :bootcamps, url: user_bootcamps_update_path(@user), method: :patch do |f| %>
+        <div class="overflowing">
+            <% @bootcamps.each do |b| %>
+                <div class="form-group">
+                    <%= b.title %>    
+                    <%= check_box("bootcamps", "ids", {:multiple => true}, "#{b.id}" , nil)%>
+                    <!-- {disabled: lambda{|category| category.archived? } -->
+                </div>    
+            <% end %>
+        </div>    
+            <%= f.submit "Update Bootcamp" %>
+        <% end %>
+
+    <% end %>
+<% end %>
+
