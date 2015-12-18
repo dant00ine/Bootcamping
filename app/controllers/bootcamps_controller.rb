@@ -3,12 +3,26 @@ class BootcampsController < ApplicationController
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy, :only_bootcamp_owber?]
     before_action :only_bootcamp_owner?, only: [:edit, :update]
     before_action :admin_user, only: [:new, :create, :destroy]
+
+    def review
+        @bootcamp = Bootcamp.find(params[:bootcamp_id])
+        @bootcamp_review = @bootcamp.bootcamp_reviews.build(bootcamp_review_params)
+        @bootcamp_review.profile_id = current_user.id
+
+        if @bootcamp_review.save
+            flash['success'] = "YEAHHHHH #{@bootcamp_review.body}"
+            redirect_to bootcamp_path(@bootcamp)
+        else
+            render :show
+        end
+    end
     
     def index
         @bootcamps = Bootcamp.paginate(page: params[:page])
     end
 
     def show
+        @bootcamp_review = @bootcamp.bootcamp_reviews.build
     end
 
     def new
@@ -44,12 +58,17 @@ private
 
     def only_bootcamp_owner?
         if current_user.profile.bootcamp_admin != @bootcamp.id
-            redirect_to :root; flash[:danger] = "This Bootcamp not belongs to you."
+            flash[:danger] = "This Bootcamp not belongs to you."
+            redirect_to :root
         end
     end
 
     def set_bootcamp
         @bootcamp = Bootcamp.find(params[:id])
+    end
+
+    def bootcamp_review_params
+        params.require(:bootcamp_review).permit(:rating, :body)
     end
 
     def bootcamp_params

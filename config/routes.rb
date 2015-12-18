@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
     #  Bootcamps    
     resources :bootcamps do
-        resources :bootcamp_reviews
+        # resources :bootcamp_reviews
+        post 'review' => 'bootcamps#review'
     end
 
     # Users / Profiles

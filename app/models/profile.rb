@@ -19,10 +19,7 @@ class Profile < ActiveRecord::Base
 
 	def self.full_name(obj)
 		user = Profile.find_by(id: obj)
-		puts "*"*100
-		p "#{user.first_name} #{user.last_name}" unless user.first_name.nil?
-		puts "*"*100
-		# "#{user.first_name} #{user.last_name}" unless user.first_name
+		"#{user.first_name} #{user.last_name}"
 	end
 
 end

@@ -2,11 +2,12 @@
 
 <% @users.each do |u| %>
 
-	<p><%= link_to Profile.full_name(u), u %>
-
-	  <% if current_user.admin? && !current_user?(u) %>
-	  (currently undeletable)
-      | <%= link_to "delete", user_path(u), method: :delete, data: { confirm: "You sure?" } %>
+	<p><%= link_to Profile.full_name(u), u unless u.nick_name.nil? %>
+	  
+	<% if current_user.admin? && !current_user?(u) %>
+	  	
+	      | <%= link_to "delete", user_path(u), method: :delete, data: { confirm: "You sure?" } %>
+	      (currently undeletable for admins)
   	<% end %>
   	</p> 
 <% end %>
