@@ -23,7 +23,7 @@ Profile.create!(first_name:  "Rovshen",
   email = "example#{n+1}@example.com"
   password = "rr"
 
-  User.create!(nick_name:  name,
+  User.create!(
                email: email,
                password:              password,
                password_confirmation: password)
