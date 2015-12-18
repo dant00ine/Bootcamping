@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update, :destroy]
-	before_action :set_profile, only:[:edit, :update]
+	before_action :set_profile_and_bootcamps, only:[:edit, :update]
 
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-	before_action :correct_user,   only: [:edit, :update, :destroy, :update_profile]
+	before_action :correct_user,   only: [:edit, :update, :destroy]
 	# before_action :admin_user,     only: [:destroy]
 	
 	def index
@@ -18,7 +18,6 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@bootcamps = Bootcamp.all
 	end
 
 	def create
@@ -46,17 +45,16 @@ class UsersController < ApplicationController
 			end
 		else
 			flash[:danger] = "Current password did not Match."
-			render :edit
+			# render :edit
+			redirect_to :back
 		end
 	end
 
     def update_profile
     	# @user = User.friendly.find(params[:user_id])
     	@user = User.find(params[:user_id])
-
     	
-        @profile = @user.profile
-    	
+        @profile = @user.profile    	
         if @profile.update_attributes(profile_params)
             flash[:success] = "#{Profile.full_name(@profile)}: successfully updated." 
             redirect_to edit_user_path(@user)
@@ -74,12 +72,21 @@ class UsersController < ApplicationController
 
 private
 
-	def set_profile
+	def current_user?(user)
+		(user == current_user) && (user.profile == current_user.profile)
+	end
+	def correct_user1
+        # @user = User.friendly.find(params[:id])
+        redirect_to(root_url) unless current_user?(@user)
+    end
+
+	def set_profile_and_bootcamps
 		@profile = @user.profile
+		@bootcamps = Bootcamp.all
 	end
 
 	def set_user
-      @user = User.find(params[:id])
+		@user = User.find(params[:id])
       # @user = User.friendly.find(params[:id])
     end
 

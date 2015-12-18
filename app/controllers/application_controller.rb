@@ -26,8 +26,6 @@ private
     # Confirms the correct user.
     def correct_user
         # @user = User.friendly.find(params[:id])
-        puts "*"*50
-        puts @user.inspect
         redirect_to(root_url) unless current_user?(@user)
     end
 

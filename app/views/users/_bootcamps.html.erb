@@ -2,7 +2,7 @@
 <% if @profile.profession_id == 1 %>
     <% if current_user.profile.bootcamps.empty? %>
 
-        <!-- Adding -->
+        <!-- ADDING -->
         <%= form_for :bootcamps, url: user_bootcamps_add_path(@user) do |f| %>
         <div class="overflowing">
             <% @bootcamps.each do |b| %>
