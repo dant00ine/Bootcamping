@@ -72,6 +72,6 @@ private
     end
 
     def bootcamp_params
-        params.require(:bootcamp).permit(:title, :about, :image, :bimage_url, :speciality, :location, :website, :email, :facebook, :twitter, :job_guarantee, :job_assistance, :apprenticeship, :accreditation, :post_grad_resources, :housing, :visa_assistance)
+        params.require(:bootcamp).permit(:title, :about, :image, :remote_image_url, :speciality, :location, :website, :email, :facebook, :twitter, :job_guarantee, :job_assistance, :apprenticeship, :accreditation, :post_grad_resources, :housing, :visa_assistance)
     end
 end

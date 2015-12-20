@@ -23,14 +23,14 @@
   <h3>============ Image =============</h3>
   <p>Need to pick one of that !</p>
   <div class="field">
-    <h5>image URL not works now !</h5>
-    <%= f.label :image_url %><br>
-    <%= f.text_field :image_url %>
 
-    <br><hr>
     <%= image_tag(@bootcamp.image_url) if @bootcamp.image? %>
     <%= f.file_field :image %>
     <%= f.hidden_field :image_cache %>
+    
+    <%= f.label :remote_image_url, "Or Image Url"%><br>
+    <%= f.text_field :remote_image_url %>
+    
   </div>
   <h3>===============================</h3>
   <div class="field">

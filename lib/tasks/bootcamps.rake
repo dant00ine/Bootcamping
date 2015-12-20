@@ -30,6 +30,8 @@ namespace :bootcamps do
 	# Linking to Page
 	links.each do |t|
 		url_link = url + "/#{t}"
+	# 1.times do
+	# 	url_link = 'https://www.coursereport.com/schools/turntotech'
 
 		begin
 			doc = open(url_link)
@@ -58,7 +60,7 @@ namespace :bootcamps do
 
 		# Images
 		page.css("div.col-xs-12.visible-xs.visible-sm div.school-image").each do |pic|
-			@boot.bimage_url = pic.at_css("img")['src'].downcase if pic.at_css("img")
+			@boot.remote_image_url = pic.at_css("img")['src'].downcase if pic.at_css("img")
 		end
 
 		# # ****************  DETAILS *****************
@@ -77,9 +79,12 @@ namespace :bootcamps do
 		@boot.location = loc_arr.join(', ')
 
 		# website
+		x= []
 		page.css("ul.school-info li.url").each do |web|
-			@boot.website = web.text if web.at_css("a")["itemprop"]
+			# @boot.website = web.text if web.at_css("a")["itemprop"]
+			x << web.at_css("a")['href']
 		end
+			puts x[0]
 
 		# email
 		page.css("ul.school-info li.email").each do |email|
@@ -111,7 +116,7 @@ namespace :bootcamps do
 		@boot.housing       	   = arr[5]
 		@boot.visa_assistance	   = arr[6]
 
-		@boot.save
+		# @boot.save
 	end
   end
 

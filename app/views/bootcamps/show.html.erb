@@ -30,22 +30,23 @@
     </p>
 
     <p>
-      <strong>Image Url:</strong>
-      <%= image_tag(@bootcamp.bimage_url) %>
-    </p>
-
-    <p>
       <strong>Speciality:</strong>
-      <%= @bootcamp.speciality %>
+      <%@bootcamp.specialities.each do |l|%>
+        <%= link_to "#{l.title}", :root %>,
+      <% end %>
     </p>
 
     <p>
       <strong>Location:</strong>
-      <%= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') if @bootcamp.location%>
+      <%#= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') if @bootcamp.location%>
+      <%@bootcamp.locations.each do |l|%>
+        <%= link_to "#{l.title}", :root %>
+      <% end %>
     </p>
 
     <p>
       <strong>Website:</strong>
+      <%= link_to @bootcamp.website, @bootcamp.website %>
       <%= @bootcamp.website %>
     </p>
 
