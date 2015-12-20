@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 		else
 			flash[:danger] = "Current password did not Match."
 			# render :edit
-			redirect_to :back
+			redirect_to edit_user_path(@user)
 		end
 	end
 
@@ -100,6 +100,6 @@ private
 	end
 
 	def profile_params
-        params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :image, :profession_id)
+        params.require(:profile).permit(:first_name, :last_name, :contact_phone, :contact_email, :contact_website, :contact_linkedin, :image, :profession_id)
     end
 end

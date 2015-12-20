@@ -1,2 +1,18 @@
 <h1>StaticPages#about</h1>
 <p>Find me in app/views/static_pages/about.html.erb</p>
+
+
+
+
+	<h1>Index Page !!!!!</h1>
+	
+	<hr>
+	<h3>Bootcamp</h3>
+
+	<% Bootcamp.all.each do |b| %>
+	<p><b><%= link_to "#{b.title}: ", bootcamp_path(b.id)%></b>
+		<% b.profiles.each do |p|%>
+				<%= link_to Profile.full_name(p.id), user_path(p.id) if p.profession_id == 1 %>
+		<% end %>
+	</p>
+	<% end %>

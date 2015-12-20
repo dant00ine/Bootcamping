@@ -1,8 +1,25 @@
 .overflowing{
     // width: 150px;
-    height: 400px;
+    height: 477px;
     overflow: auto;
     border: 1px solid black;
     border-radius: 15px;
     padding: 20px;
+    margin-top: 20px;
+}
+
+
+#index{
+	background-image: url("http://7818-presscdn-0-76-pagely.netdna-ssl.com/wp-content/uploads/2014/01/photodune-3580063-wooden-surface-m.jpg");
+	// background-color: #fff;
+	// background: #234567;
+	margin-top: -40px;
+}
+
+.index{
+	
+}
+
+.index h3{
+	color: red;
 }

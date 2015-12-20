@@ -1,13 +1,43 @@
+<div class='index' id='index'>
+    <h3>Layout Page</h3>
 
-	<h1>Index Page !!!!!</h1>
-	
-	<hr>
-	<h3>Bootcamp</h3>
+<div class="col-md-2">
+</div>
 
-	<% Bootcamp.all.each do |b| %>
-	<p><b><%= link_to "#{b.title}: ", bootcamp_path(b.id)%></b>
-		<% b.profiles.each do |p|%>
-				<%= link_to Profile.full_name(p.id), user_path(p.id) if p.profession_id == 1 %>
-		<% end %>
-	</p>
+<div class="col-md-8">
+
+	<%= form_for :bootcamp do |f| %>
+		<div class="form-group">
+			<%= f.label	:type %>
+			<%= f.select :type,['Developer', 'Entrepreneur', 'Investor'], {},class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :where %>
+			<%= f.collection_select(:bootcamp_id, Bootcamp.all, :id, :title) %>
+		</div>
+
 	<% end %>
+	  
+
+	<!-- Bootcamp Search -->
+	<div class="col-md-11 col-md-offset-1">
+	    <div class="input-group input-group-lg">
+	      <input type="text" class="form-control" placeholder="Search for...">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button">Go!</button>
+	      </span>
+	    </div><!-- /input-group -->
+	</div>
+</div>
+
+<div class="col-md-2">
+</div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#index').css('min-height', $(window).height());
+    })
+</script>

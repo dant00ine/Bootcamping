@@ -1,29 +1,38 @@
+<div class="row">
 <%= form_for (@user), html: { multipart: true } do |f| %>
-    <% if @user.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this User from being saved:</h2>
-            <ul>
-                <% @user.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
+
+    <div class="form-group col-md-6">
+        <%= f.label :nick_Name %>
+        <% if @user.errors[:nick_name][0]%>
+            <div class="alert alert-danger text-center">
+                <%= f.text_field :nick_name, class: 'form-control', placeholder: 'nick name'%>
+                Email <%= @user.errors[:nick_name][0]%>
+            </div>
+        <% else %>
+            <%= f.text_field :nick_name, class: 'form-control', placeholder: 'nick name'%>  
+        <% end %>
+    </div>
+
+    <div class="form-group col-md-6">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= f.label :new_password %>
+        <%= f.password_field :password, class: 'form-control', placeholder: "Enter New Password" %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= f.label :password_confirmation, "New Confirmation Password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter New Password Confirmation"%>
+    </div>
     
-    <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
-
-    <%= f.label :nickname %>
-    <%= f.text_field :nick_name, class: 'form-control' %>
-
-    <%= f.label :new_password %>
-    <%= f.password_field :password, class: 'form-control', placeholder: "Enter Password Confirmation" %>
-
-    <%= f.label :password_confirmation, "New Confirmation Password" %>
-    <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter New Password Confirmation"%>
-	
-	<%= f.label :current_password %>
-    <%= f.password_field :current_password, class: 'form-control', placeholder: "Enter Current Password"%>
-
-    <%= f.submit "Update Account", class: "btn btn-primary" %>
+    <hr width='70%'>
+    <div class="form-group col-md-12">
+    	<%= f.label :current_password %>
+        <%= f.password_field :current_password, class: 'form-control', placeholder: "Enter Current Password"%>
+    </div>
+    <div class="form-group col-md-12">
+        <%= f.submit 'Update User', class: 'btn btn-primary btn-lg btn-block'%>
+    </div>
 <% end %>
+</div>

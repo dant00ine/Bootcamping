@@ -1,44 +1,95 @@
+<div class="row">
+<div class="col-md-6">
 <%= form_for (@profile), url: user_profile_path(@user), html: { multipart: true } do |f| %>
-    <% if @profile.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-        <ul>
-        <% @profile.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="form-group col-md-12">
+        <%= @profile.image? ? image_tag(@profile.image_url) : image_tag('default.png', size: '180') %>
+          <% if @profile.errors[:image][0] %>
+            <div class="alert alert-danger text-center">
+                Image <%= @profile.errors[:image].join(', ')%>
+                <%= f.file_field :image %>
+            </div>
+          <% else %>
+            <%= f.file_field :image %>
+          <% end %>
+        <%= f.hidden_field :image_cache %>
+    </div>
 
-    <div class="form-group">
-      <%= @profile.image? ? image_tag(@profile.image_url) : image_tag('default.png', size: '180') %>
-      <%= f.file_field :image %>
-      <%= f.hidden_field :image_cache %>
+    <div class="form-group col-md-12">
+      <%= f.label "Profession:" %>
+      <%= f.collection_select(:profession_id, Profession.all, :id, :title, {:prompt => false}, {class: 'form-control'})%>
     </div>
-    <div class="form-group">
-        <%= f.collection_select(:profession_id, Profession.all, :id, :title) %>
+
+    <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label "First name*" %>
+          <% if @profile.errors[:first_name][1] %>
+              <div class="alert alert-danger text-center">
+                  <%= f.text_field :first_name, class: 'form-control', placeholder: 'First name'%>
+                  <%= @profile.errors[:first_name][1]%>
+              </div>
+          <% else %>
+              <%= f.text_field :first_name, class: 'form-control', placeholder: 'First name'%>
+          <% end %>
+        </div>
     </div>
-    <div class="form-group">
-      <%= f.label :first_name %><br>
-      <%= f.text_field :first_name %>
+
+    <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label "Last name*" %>
+            <% if @profile.errors[:last_name][1] %>
+              <div class="alert alert-danger text-center">
+                  <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last name'%>
+                  <%= @profile.errors[:last_name][1] %>
+              </div>
+            <% else %>
+                <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last name'%>
+            <% end %>
+        </div>
     </div>
-    <div class="form-group">
-      <%= f.label :last_name %><br>
-      <%= f.text_field :last_name %>
+
+    <div class="form-group col-md-6">
+      <%= f.label "Contact phone*" %>
+      <% if @profile.errors[:contact_phone][0]%>
+        <div class="alert alert-danger text-center">
+            <%= f.text_field :contact_phone, class: 'form-control', placeholder: 'Contact Phone Number'%>
+            <%= @profile.errors[:contact_phone][0]%>
+        </div>
+      <% else %>
+            <%= f.text_field :contact_phone, class: 'form-control', placeholder: 'Contact Phone Number'%>
+      <% end %>
     </div>
-    <div class="form-group">
-      <%= f.label :contact_phone %><br>
-      <%= f.text_field :contact_phone %>
+
+    <div class="form-group col-md-6">
+      <%= f.label "Contact email*" %>
+      <% if @profile.errors[:contact_email][0]%>
+        <div class="alert alert-danger text-center">
+            <%= f.email_field :contact_email, class: 'form-control', placeholder: 'Contact Email'%>
+            <%= @profile.errors[:contact_email][0]%>
+        </div>
+      <% else %>
+            <%= f.email_field :contact_email, class: 'form-control', placeholder: 'Contact Email'%>
+      <% end %>
     </div>
-    <div class="form-group">
-      <%= f.label :contact_email %><br>
-      <%= f.email_field :contact_email %>
+
+    <div class="form-group col-md-6">
+        <%= f.label :linkedin %>
+        <%= f.text_field :contact_linkedin, class: 'form-control', placeholder: 'Linkedin'%>
     </div>
-    <div class="form-group">
-      <%= f.label :contact_website %><br>
-      <%= f.text_field :contact_website %>
+
+    <div class="form-group col-md-6">
+        <%= f.label 'Website'%>
+        <%= f.text_field :contact_website, class: 'form-control', placeholder: 'Website'%>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+
+    <div class="form-group col-md-12">
+        <%= f.submit 'Update Profile', class: 'btn btn-primary btn-lg btn-block'%>
     </div>
+
 <% end %>
+</div>
+
+
+<div class="col-md-6">
+    <%= render 'bootcamps' %>
+</div>
+</div>

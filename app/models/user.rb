@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
     attr_accessor :remember_token
     # extend FriendlyId
-    # friendly_id :nick_name, use: :slugged
+    # friendly_id :nick_name, use: [:slugged, :history, :finders]
     
     has_one :profile, dependent: :destroy
 
@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
     has_secure_password
     validates :password, presence: true, length: { minimum: 2 }, allow_nil: true
+
+
+    # def nick_name_generate_new_friendly_id?
+    #     nick_name_changed?
+    # end
 
 class << self
 
