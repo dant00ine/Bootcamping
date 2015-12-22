@@ -31,8 +31,8 @@
 
     <p>
       <strong>Speciality:</strong>
-      <%@bootcamp.specialities.each do |l|%>
-        <%= link_to "#{l.title}", :root %>,
+      <%@bootcamp.specialities.each do |s|%>
+          <%= link_to "#{s.title}", search_path({speciality: s}) %>,
       <% end %>
     </p>
 
@@ -40,14 +40,13 @@
       <strong>Location:</strong>
       <%#= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') if @bootcamp.location%>
       <%@bootcamp.locations.each do |l|%>
-        <%= link_to "#{l.title}", :root %>
+        <%= link_to "#{l.title}", search_path({location: l}) %>,
       <% end %>
     </p>
 
     <p>
       <strong>Website:</strong>
-      <%= link_to @bootcamp.website, @bootcamp.website %>
-      <%= @bootcamp.website %>
+      <%= link_to @bootcamp.website, @bootcamp.website, :target => "_blank" %>
     </p>
 
     <p>
@@ -57,14 +56,16 @@
 
     <p>
       <strong>Facebook:</strong>
-      <%= @bootcamp.facebook %>
+      <%= link_to @bootcamp.facebook, @bootcamp.facebook, :target => "_blank" %>
+    
     </p>
 
     <p>
       <strong>Twitter:</strong>
-      <%= @bootcamp.twitter %>
+      <%= link_to @bootcamp.twitter, @bootcamp.twitter, :target => '_blank' %>
+      
     </p>
-
+<hr>
     <p>
       <strong>Job guarantee:</strong>
       <%= @bootcamp.job_guarantee %>

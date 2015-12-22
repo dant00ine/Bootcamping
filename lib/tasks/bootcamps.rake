@@ -14,7 +14,7 @@ namespace :bootcamps do
 	# max_schools = search_max.split.first.to_i
 
 	links  = []
-	(1..30).each do |i|
+	(1..15).each do |i|
 		url_paging = url + "?page=#{i}"
 		page = Nokogiri::HTML(open(url_paging))
 		
@@ -26,12 +26,14 @@ namespace :bootcamps do
 		end
 	end
 	
+
 	counter = 0
 	# Linking to Page
 	links.each do |t|
 		url_link = url + "/#{t}"
 	# 1.times do
 	# 	url_link = 'https://www.coursereport.com/schools/turntotech'
+	# url_link = 'https://www.coursereport.com/schools/code-fellows'
 
 		begin
 			doc = open(url_link)
@@ -69,14 +71,16 @@ namespace :bootcamps do
 		page.css("ul.school-info li.school-tracks a").each do |spec|
 			speciality_arr << spec.text if spec.text
 		end
-		@boot.speciality = speciality_arr.join(", ")
+		@boot.speciality_ids = Speciality.where(:title => speciality_arr).pluck(:id)
+
 
 		# Locations
 		loc_arr = []
 		page.css("ul.school-info li.location a").each do |loc|
 			loc_arr << loc.text if loc.text
 		end
-		@boot.location = loc_arr.join(', ')
+		@boot.location_ids = Location.where(:title => loc_arr).pluck(:id)
+
 
 		# website
 		x= []
@@ -85,6 +89,7 @@ namespace :bootcamps do
 			x << web.at_css("a")['href']
 		end
 			puts x[0]
+			@boot.website = x[0]
 
 		# email
 		page.css("ul.school-info li.email").each do |email|
@@ -116,9 +121,86 @@ namespace :bootcamps do
 		@boot.housing       	   = arr[5]
 		@boot.visa_assistance	   = arr[6]
 
-		# @boot.save
+		@boot.save
 	end
+
   end
+
+
+
+  desc "Get all locations/Specs from Bootcamps"
+  task get_locs_specs: :environment do
+
+	require "open-uri"
+	require "nokogiri"
+
+	url = "https://www.coursereport.com/schools"
+	page = Nokogiri::HTML(open(url))
+
+	links  = []
+	(1..15).each do |i|
+		url_paging = url + "?page=#{i}"
+		page = Nokogiri::HTML(open(url_paging))
+		
+		# Getting link titles
+		link = page.css("div.school-header h3").each do |l|
+			x = l.at_css('a')['href']
+			x.slice! "/schools/"
+	    	links << x
+		end
+	end
+
+all_locations_arr = []
+
+	links.each do |t|
+		url_link = url + "/#{t}"
+
+		begin
+			doc = open(url_link)
+			Link.create(:link => url_link.to_s)
+		rescue OpenURI::HTTPError => http_error
+		    # http_error.message is the numeric code and text in a string 
+		    status = http_error.io.status[0].to_i # => 3xx, 4xx, or 5xx
+		    puts "Got a bad status code #{status}"
+		end
+
+		page = Nokogiri::HTML(doc)
+		# # ****************  DETAILS *****************
+		# speciality  
+		speciality_arr = []
+		page.css("ul.school-info li.school-tracks a").each do |spec|
+			speciality_arr << spec.text if spec.text
+		end
+			# Saving to Speciality DB
+			speciality_arr.each do |s|
+				unless Speciality.where(:title => s).exists?
+					Speciality.create(:title => s)
+				end
+			end 
+
+		# current_user.profile.bootcamp_reviews.where(bootcamp: @bootcamp).exists?
+
+		# Locations
+		loc_arr = []
+		page.css("ul.school-info li.location a").each do |loc|
+			loc_arr << loc.text if loc.text
+		end
+
+		loc_arr.each do |l|
+			all_locations_arr << l unless all_locations_arr.include?(l)
+		end
+	end
+
+		all_locations_arr.sort_by! {|s| s.downcase}
+
+			all_locations_arr.each do |loc|
+				unless Location.where(:title => loc).exists?
+					Location.create(:title => loc)
+				end
+			end
+
+  end
+
 
   desc "Delete All Bootcamps from Database"
   task del_all: :environment do
