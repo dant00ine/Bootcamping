@@ -15,7 +15,9 @@ class StaticPagesController < ApplicationController
 		# 	@search = x.bootcamps
 		# end
 		# render :search
+		
 		loc = Location.find(params[:search]['location_id'])
-		render plain: loc
+		@search = loc.bootcamps
+
 	end
 end

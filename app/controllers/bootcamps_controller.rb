@@ -18,11 +18,19 @@ class BootcampsController < ApplicationController
     end
     
     def index
-        @bootcamps = Bootcamp.paginate(page: params[:page], :per_page => 50)
-        
-        loc = Bootcamp.find(params[:search]['location_id'])
+        # render plain: params
 
-        # @bootcamps = Bootcamp.where()
+        unless params[:search].nil?
+            if params[:search]['location_id'].present?
+                loc = Location.find(params[:search]['location_id']) 
+                @bootcamps = loc.bootcamps 
+            end 
+            x = params[:search]
+            title = Bootcamp.where(:title => x[:title])
+            render plain: title.inspect
+        else
+            @bootcamps = Bootcamp.paginate(page: params[:page], :per_page => 50)    
+        end
     end
 
     def show

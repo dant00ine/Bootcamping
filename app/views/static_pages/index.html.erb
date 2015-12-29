@@ -10,9 +10,9 @@
 		<div class="form-group">
 
 			<%= collection_select(:search, :location_id, Location.all, :id, :title) %>
-			<%= collection_select(:search, :speciality_id, Speciality.all, :id, :title) %>
+			<%#= collection_select(:search, :speciality_id, Speciality.all, :id, :title) %>
 
-			<%=  submit_tag 'Search' %>
+			<%=  submit_tag 'Search', name: nil %>
 		</div>
 	<% end %>
 	  
