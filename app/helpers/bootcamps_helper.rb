@@ -16,8 +16,4 @@ module BootcampsHelper
         # end
     end
 
-    def bootcamp_owner?(bootcamp)
-        current_user.profile.bootcamp_admin == bootcamp.id
-    end
-
 end

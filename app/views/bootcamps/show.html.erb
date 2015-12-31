@@ -101,8 +101,10 @@
       <%= @bootcamp.visa_assistance %>
     </p>
 
+<% if current_user.admin %>
     <%= link_to 'Edit', edit_bootcamp_path(@bootcamp) %> |
     <%= link_to 'Back', bootcamps_path %>
+<% end %>
 
     <div class="col-md-12">
   

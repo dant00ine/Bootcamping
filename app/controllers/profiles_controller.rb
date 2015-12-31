@@ -36,7 +36,7 @@ class ProfilesController < ApplicationController
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
         if x.length != 0
-            if x.length <= 2
+            if x.length <= 3
                 @user.profile.bootcamp_ids = x
                 flash[:success] = "Yeah Added Bootcamps"
             else
@@ -51,7 +51,7 @@ class ProfilesController < ApplicationController
     def bootcamps_update
         x = params[:bootcamps] 
         x ? x = x['ids'] : x = []
-        if x.length <= 2
+        if x.length <= 3
             @user.profile.bootcamp_ids = x 
             flash[:success] = "Yeah Added Bootcamps"
         else

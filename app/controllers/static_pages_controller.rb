@@ -16,8 +16,12 @@ class StaticPagesController < ApplicationController
 		# end
 		# render :search
 		
-		loc = Location.find(params[:search]['location_id'])
-		@search = loc.bootcamps
+		search  = Location.find(params['location']) if params['location']
+		search = Speciality.find(params['speciality']) if params['speciality']
+
+		@search = search.bootcamps
+
+		# render plain: params
 
 	end
 end

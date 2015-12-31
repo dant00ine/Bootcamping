@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221063255) do
+ActiveRecord::Schema.define(version: 20151231031755) do
 
   create_table "bootcamp_reviews", force: :cascade do |t|
     t.integer  "rating"
@@ -26,8 +26,6 @@ ActiveRecord::Schema.define(version: 20151221063255) do
     t.string   "title"
     t.text     "about"
     t.string   "image"
-    t.string   "speciality"
-    t.string   "location"
     t.string   "website"
     t.string   "email"
     t.string   "facebook"
@@ -109,7 +107,6 @@ ActiveRecord::Schema.define(version: 20151221063255) do
     t.integer  "user_id"
     t.string   "image"
     t.integer  "profession_id"
-    t.integer  "bootcamp_admin"
     t.string   "contact_linkedin"
   end
 

@@ -1,7 +1,6 @@
 class BootcampsController < ApplicationController
     before_action :logged_in_user, except: [:index, :show]
     before_action :set_bootcamp, only: [:show, :edit, :update, :destroy, :only_bootcamp_owber?]
-    before_action :only_bootcamp_owner?, only: [:edit, :update]
     before_action :admin_user, only: [:new, :create, :destroy]
 
     def review
@@ -62,13 +61,6 @@ class BootcampsController < ApplicationController
     end
 
 private
-
-    def only_bootcamp_owner?
-        if current_user.profile.bootcamp_admin != @bootcamp.id
-            flash[:danger] = "This Bootcamp not belongs to you."
-            redirect_to :root
-        end
-    end
 
     def set_bootcamp
         @bootcamp = Bootcamp.find(params[:id])

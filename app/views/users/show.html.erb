@@ -8,11 +8,10 @@
 		<p><%= @user.profile.last_name %></p>
 		<p><%= @user.profile.contact_phone %></p>
 		<p><%= @user.profile.contact_email %></p>
-		<p><%= @user.profile.profession_id %></p>
 
-		<% unless @user.profile.contact_website.nil? %>
-		<p><%= link_to "http://www.#{@user.profile.contact_website}", "http://#{@user.profile.contact_website}", :target => "_blank" unless @user.profile.contact_website.nil? %></p>
-		<% end %>
+		
+		<p><%= link_to "#{@user.profile.contact_website}", "http://#{@user.profile.contact_website}", :target => "_blank" unless @user.profile.contact_website.nil? %></p>
+		<p><%= link_to "Linkedin", "http://#{@user.profile.contact_linkedin}", :target => '_blank' unless @user.profile.contact_linkedin.nil?%></p>
 
 		<hr>
 		
