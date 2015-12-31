@@ -113,8 +113,8 @@
 
 
 <% if logged_in? %>
-    <% unless current_user_commented? %>
-      <%= render "review" %>
+    <% unless (current_user.profile.profession_id != 1) %>
+      <%= render "review" unless current_user_commented? %>
     <% end %>
 <% end %>
 

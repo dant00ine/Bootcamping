@@ -3,6 +3,8 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :all_bootcamps_professions, only: [:edit]
 
+# MOVE TO USERS_CONTROLLER }
+
     # def edit
     #     @profile = @user.profile
     # end

@@ -6,7 +6,8 @@ module BootcampsHelper
     end
 
     def current_user_commented?
-        current_user.profile.bootcamp_reviews.where(bootcamp: @bootcamp).exists?
+        current_user.profile.bootcamp_reviews.exists?
+        # current_user.profile.bootcamp_reviews.where(bootcamp: @bootcamp).exists?
         
         # @bootcamp.bootcamp_reviews.each do |b|
         #     current_user.profile.bootcamp_reviews.each do |p|
