@@ -57,7 +57,8 @@ class BootcampsController < ApplicationController
 
     def destroy
         @bootcamp.destroy
-        redirect_to bootcamps_url, notice: 'Bootcamp was successfully destroyed.'
+        flash[:danger] = 'Bootcamp was successfully destroyed.'
+        redirect_to bootcamps_url
     end
 
 private

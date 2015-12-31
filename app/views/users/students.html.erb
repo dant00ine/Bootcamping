@@ -1,0 +1,4 @@
+
+<% @students.each do |s| %>
+	<p><%= link_to Profile.full_name(s), user_path(s) %></p>
+<% end %>

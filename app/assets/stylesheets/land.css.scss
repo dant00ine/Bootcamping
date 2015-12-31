@@ -1,0 +1,282 @@
+$gondor: #e0ddd6;
+$anduin: #708ea2;
+$noldor: #505c67;
+$saddle: #874d28;
+$ranger: #5d5933;
+$mordor: #393834;
+$ranger_green: #6d8a72;
+
+@font-face{
+	font-family: 'title';
+	src: font-url('RINGM___.TTF');
+}
+
+@font-face{
+	font-family: 'aniron';
+	src: font-url('anirb___.ttf');
+}
+
+/*****************   PARALLAX   *****************/
+
+// @import url(http://fonts.googleapis.com/css?family=Nunito);
+
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+body { 
+  margin:0;
+  padding:0;
+	perspective: 1px;
+	transform-style: preserve-3d;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+h1 {
+   font-size: 250%
+}
+
+// p {
+//   font-size: 140%;
+//   line-height: 150%;
+//   color: #333;
+// }
+
+.slide {
+  position: relative;
+  padding: 25vh 10%;
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, .7);
+	transform-style: inherit;
+}
+
+.slide-img {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  width: 320px;
+  height: 240px;
+  transform: translateZ(.25px) scale(.75) translateX(-94%) translateY(-100%) rotate(2deg);
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(240,230,220, .7);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .7);
+}
+
+.slide-img:last-of-type {
+  transform: translateZ(.4px) scale(.6) translateX(-104%) translateY(-40%) rotate(-5deg);
+}
+
+.slide:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right:0;
+}
+
+.title {
+  width: 50%;
+  padding: 5%;
+  border-radius: 5px;
+  background: rgba(240,230,220, .7);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .7);
+}
+
+.slide:nth-child(2n) .title {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.slide:nth-child(2n+1) .title {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.slide, .slide:before {
+  background: 50% 50% / cover;  
+}
+
+.header {
+  text-align: center;
+  font-size: 175%;
+  color: #fff;
+  text-shadow: 0 2px 2px #000;
+}
+
+#title {
+  background-image: url("/assets/Rivendell1.jpg");
+   background-attachment: fixed;  
+}
+
+#slide1:before {
+  background-image: url("/assets/rivendell2.jpg");
+  transform: translateZ(-1px) scale(2);
+  z-index:-1;
+}
+
+#slide2 {
+  background-image: url("/assets/rivendell3.jpg");
+  background-attachment: fixed;
+}
+
+#slide3:before {
+  background-image: url("/assets/rivendell4.jpg");
+  transform: translateZ(-1px) scale(2);
+  z-index:-1;
+}
+
+#slide4 {
+  background: #222;
+}
+
+/*****************   FORMS   *****************/
+
+
+label {
+	font-family: 'aniron';
+	font-size: 12px;
+	display: block;
+	width: 25%;
+	padding-right:10px;
+	margin: auto;
+	text-align: center;
+}
+
+.heroic_input {
+	margin: auto;
+	margin-bottom: 20px;
+	width: 100%;
+	display: inline-block;
+	border: none;
+	border-bottom: 1px solid $gondor;
+	height: 50px;
+	// appearance: none;
+	// box-shadow: none;
+	outline: none;
+	border-radius: 10px;
+	padding: 10px;
+	font-family: 'aniron';
+	font-size: 22px;
+	left: 50%;
+	&:focus{
+		border-bottom: 1px solid lighten($ranger, 15%);
+		outline: none;
+	}
+	&:hover{
+		border-bottom: 1px solid lighten($ranger, 25%);
+	}
+	.col-3{
+		border-radius: none;
+	}
+}
+
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+/*************     NAVIGATION     *************/
+
+#navigation ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 2px;
+	padding-left: 5px;
+	background-color: $gondor;
+}
+
+#navigation ul li {
+	display: inline-block;
+	a {
+		text-decoration: none;
+		font-family: 'aniron';
+		font-size: 12px;
+		color: $mordor;
+	}
+	button {
+		background: none;
+		border: none;
+		font-family: 'title';
+		font-size: 14px
+	}
+}
+
+
+/************* FONT AND COLORS ************/
+
+// @mixin darken($baseColor){
+// 	background-color: $baseColor
+// 	&:hover
+// 		background-color: darken($baseColor, 5%)
+// }
+
+.title_text {
+	font-family: 'title', sans-serif;
+	color: red;
+}
+
+.aniron {
+	font-family: 'aniron', sans-serif;
+	text-align: center;
+}
+
+
+/*************   COLOR BLOCKS   *************/
+
+// body{
+// 	background-color: white;
+// }
+
+/*************   GRID SYSTEM    *************/
+
+// .grid-container{
+//     width: 100%; 
+//     /*max-width: 1200px;      */
+// }
+
+
+// /*clearfix hack*/
+// .row:before, 
+// .row:after {
+//     content:"";
+//     display: table ;
+//     clear:both;
+// }
+
+// [class*='col-'] {
+//     float: left; 
+//     min-height: 1px; 
+//     width: 16.66%; 
+//     padding: 1%;     
+// }
+
+// .col-1{ width: 14.666%; }
+// .col-2{ width: 31.33%; }
+// .col-3{ width: 48%;    }
+// .col-4{ width: 64.66%; }
+// .col-5{ width: 81.33%; }
+// .col-6{ width: 98%;   }
+
+
+// .row:hover > .overlay {
+//     width:100%;
+//     height:100%;
+//     position:absolute;
+//     background-color:#000;
+//     opacity:0.5;
+//     border-radius:30px;
+// }
+
+// [class*='col-'] > p {
+//  padding: 0;
+//  margin: 0;
+//  text-align: center; 
+//  /*color: white; */
+// }

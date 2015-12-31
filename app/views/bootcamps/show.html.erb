@@ -5,8 +5,12 @@
     <h4>Students Who is attending</h4>
     <hr>
 
-    <% @bootcamp.profiles.each do |p| %>
-        <p><%= link_to Profile.full_name(p.id), user_path(p.id) if p.profession_id == 1 %></p>
+    <% if logged_in? %>
+        <% @bootcamp.profiles.each do |p| %>
+            <p><%= link_to Profile.full_name(p.id), user_path(p.id) if p.profession_id == 1 %></p>
+        <% end %>
+    <% else %>
+        <h4><%= pluralize(@bootcamp.profiles.length, 'Student') %> attended. <%= link_to "Sign Up", new_user_path %>  to see.</h4>
     <% end %>
     </div>
   </div>
@@ -15,8 +19,7 @@
     <p id="notice"><%= notice %></p>
 
     <p>
-      <strong>Title:</strong>
-      <%= @bootcamp.title %>
+      <h1><%= @bootcamp.title %></h1>
     </p>
 
     <p>
@@ -31,7 +34,7 @@
 
     <p>
       <strong>Speciality:</strong>
-      <%@bootcamp.specialities.each do |s|%>
+      <% @bootcamp.specialities.each do |s| %>
           <%= link_to "#{s.title}", search_path({speciality: s}) %>,
       <% end %>
     </p>
@@ -39,7 +42,7 @@
     <p>
       <strong>Location:</strong>
       <%#= @bootcamp.location.split.each{|i| i.capitalize!}.join(' ') if @bootcamp.location%>
-      <%@bootcamp.locations.each do |l|%>
+      <% @bootcamp.locations.each do |l| %>
         <%= link_to "#{l.title}", search_path({location: l}) %>,
       <% end %>
     </p>
@@ -101,9 +104,9 @@
       <%= @bootcamp.visa_assistance %>
     </p>
 
-<% if current_user.admin %>
-    <%= link_to 'Edit', edit_bootcamp_path(@bootcamp) %> |
-    <%= link_to 'Back', bootcamps_path %>
+<% if logged_in? && current_user.admin%>
+      <%= link_to 'Edit', edit_bootcamp_path(@bootcamp) %> |
+      <%= link_to 'Back', bootcamps_path %>
 <% end %>
 
     <div class="col-md-12">

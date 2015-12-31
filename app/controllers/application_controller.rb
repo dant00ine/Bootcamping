@@ -9,7 +9,7 @@ private
     # Confirms an admin user.
     def admin_user
       unless current_user.admin?
-        flash[:danger]='Its allowed only for admins'
+        # flash[:danger]='Its allowed only for admins'
         redirect_to(root_url)
       end
     end

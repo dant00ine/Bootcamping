@@ -1,0 +1,6 @@
+<H1>Recruiter</H1>
+
+
+<% @recruiters.each do |r| %>
+	<p><%= link_to Profile.full_name(r), user_path(r) %></p>
+<% end %>

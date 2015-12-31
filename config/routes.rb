@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     end
 
     # Users / Profiles
+    get 'students'=> 'users#students'
+    get 'recruiters'=> 'users#recruiters'
+    get 'jobs'=> 'users#recruiters'
+    
     resources :users do
         patch "profile" => "users#update_profile"
 

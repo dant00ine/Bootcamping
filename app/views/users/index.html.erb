@@ -1,13 +1,16 @@
 <h1>PROFILES</h1>
 
-<% @users.each do |u| %>
 
-	<p><%= link_to Profile.full_name(u), u unless u.nick_name.nil? %>
-	  
-	<% if current_user.admin? && !current_user?(u) %>
-	  	
-	      | <%= link_to "delete", user_path(u), method: :delete, data: { confirm: "You sure?" } %>
-	      (currently undeletable for admins)
-  	<% end %>
-  	</p> 
+<% @users.each do |p| %>
+
+	<p><%= link_to Profile.full_name(p), p %></p> 
+	
+		<% blockk do %>
+			<% if current_user.admin? && !current_user?(p) %>
+			      | <%= link_to "delete", user_path(p), method: :delete, data: { confirm: "You sure?" } %>
+			      (currently undeletable for admins)
+		  	<% end %>
+		  	</p> 
+		<% end %>
+
 <% end %>

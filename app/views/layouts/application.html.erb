@@ -12,22 +12,21 @@
         <%= content_tag :div, v, class: "alert alert-#{k} text-center" %>
     <% end %>
 
-    <% if !logged_in? %>
-        <%= render 'layouts/navbar' %>
-    <% end %>
 
-    <% if logged_in? %>
-        <div class="text-center">
-            <%= link_to "Home", root_path %> |
-            <%= link_to "Bootcamps", bootcamps_path %> |
-            <%= link_to current_user.email, user_path(current_user) %> |
+    <div class="text-center">
+        <%= link_to "Home", root_path %> |
+        <%= link_to "Bootcamps", bootcamps_path %> |
+        <%= link_to "Students", students_path %> |
+        <%= link_to "Recruiters", recruiters_path %> 
+        <% if logged_in? %>
+            |<%= link_to current_user.email, user_path(current_user) %> |
             <%= link_to "Log Out", logout_path %>
-        </div>
-    <% end %>
+        <% end %>   
+    </div>
 
-<div class="container">
+
     <%= yield %>
-</div>
+
 
 
 <% blockk do %>

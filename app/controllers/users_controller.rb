@@ -2,10 +2,18 @@ class UsersController < ApplicationController
 	before_action :set_user, only: [:edit, :show, :update, :destroy]
 	before_action :set_profile_and_bootcamps, only:[:edit, :update, :update_profile]
 
-	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+	before_action :logged_in_user, only: [:edit, :update, :destroy]
 	before_action :correct_user,   only: [:edit, :update, :destroy]
-	# before_action :admin_user,     only: [:destroy]
+	before_action :admin_user,     only: [:index]
 	
+	def students
+		@students = Profile.all.select {|p| p.profession_id == 1}
+	end
+
+	def recruiters
+		@recruiters = Profile.all.select {|p| p.profession_id == 2}
+	end
+
 	def index
 		@users = User.all
 	end
