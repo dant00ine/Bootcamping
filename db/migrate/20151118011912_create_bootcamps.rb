@@ -4,8 +4,6 @@ class CreateBootcamps < ActiveRecord::Migration
       t.string :title
       t.text :about
       t.string :image
-      t.string :speciality
-      t.string :location
       t.string :website
       t.string :email
       t.string :facebook

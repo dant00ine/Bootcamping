@@ -1,8 +1,7 @@
 class Bootcamp < ActiveRecord::Base
-
 	mount_uploader :image, ImageUploader
 	
-
+	has_many :cohorts, dependent: :destroy
 	has_and_belongs_to_many :locations
 	has_and_belongs_to_many :specialities
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231031755) do
+ActiveRecord::Schema.define(version: 20151231202919) do
 
   create_table "bootcamp_reviews", force: :cascade do |t|
     t.integer  "rating"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 20151231031755) do
 
   add_index "bootcamps_specialities", ["bootcamp_id"], name: "index_bootcamps_specialities_on_bootcamp_id"
   add_index "bootcamps_specialities", ["speciality_id"], name: "index_bootcamps_specialities_on_speciality_id"
+
+  create_table "cohorts", force: :cascade do |t|
+    t.string   "month"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "bootcamp_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
